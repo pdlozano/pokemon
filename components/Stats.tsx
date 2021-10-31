@@ -21,18 +21,21 @@ function Stats(props: StatsData): JSX.Element {
     const stats = props.data.stats;
 
     return (
-        <ol>
+        <table>
             {stats.map((stat) => {
                 const name = stat.stat.name;
 
                 return (
-                    <li key={name}>
-                        {name}: {stat.base_stat}{" "}
-                        <StatMeter name={name} value={stat.base_stat} />
-                    </li>
+                    <tr key={name}>
+                        <td>{name}</td>
+                        <td>{stat.base_stat}</td>
+                        <td>
+                            <StatMeter name={name} value={stat.base_stat} />
+                        </td>
+                    </tr>
                 );
             })}
-        </ol>
+        </table>
     );
 }
 
