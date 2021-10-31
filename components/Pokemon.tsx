@@ -1,5 +1,6 @@
 import type { Pokemon as PokemonType } from "pokenode-ts";
 import Meta from "./Meta";
+import Stats from "./Stats";
 
 type PokemonData = {
     data: PokemonType | undefined;
@@ -14,6 +15,7 @@ function Pokemon(props: PokemonData): JSX.Element {
     return (
         <div>
             <Meta data={props.data} />
+            <Stats data={props.data} />
 
             {props.children}
         </div>
