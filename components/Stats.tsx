@@ -6,8 +6,20 @@ type StatMeterData = {
 };
 
 function StatMeter(props: StatMeterData): JSX.Element {
+    const min = 0;
+    const max = 180;
+
     return (
-        <meter id={props.name} min="0" max="255" value={props.value}>
+        <meter
+            id={props.name}
+            min={min}
+            max={max}
+            low={max * 0}
+            optimum={max * 0.5}
+            high={max * 0.7}
+            value={props.value}
+            className="w-full h-5"
+        >
             Base Stat is {props.value}
         </meter>
     );
@@ -21,14 +33,16 @@ function Stats(props: StatsData): JSX.Element {
     const stats = props.data.stats;
 
     return (
-        <table>
+        <table className="w-full">
             {stats.map((stat) => {
                 const name = stat.stat.name;
 
                 return (
                     <tr key={name}>
-                        <td>{name}</td>
-                        <td>{stat.base_stat}</td>
+                        <td className="text-right w-40">{name}</td>
+                        <td className="text-right pl-2 w-14">
+                            {stat.base_stat}
+                        </td>
                         <td>
                             <StatMeter name={name} value={stat.base_stat} />
                         </td>
