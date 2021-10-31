@@ -23,4 +23,48 @@ enum PokemonTypes {
     Fairy = "#e9e",
 }
 
+function TextToPokemonType(value: string): PokemonTypes {
+    switch (value.toLowerCase()) {
+        case "normal":
+            return PokemonTypes.Normal;
+        case "fire":
+            return PokemonTypes.Fire;
+        case "water":
+            return PokemonTypes.Water;
+        case "electric":
+            return PokemonTypes.Electric;
+        case "grass":
+            return PokemonTypes.Grass;
+        case "ice":
+            return PokemonTypes.Ice;
+        case "fighting":
+            return PokemonTypes.Fighting;
+        case "poison":
+            return PokemonTypes.Poison;
+        case "ground":
+            return PokemonTypes.Ground;
+        case "flying":
+            return PokemonTypes.Flying;
+        case "psychic":
+            return PokemonTypes.Psychic;
+        case "bug":
+            return PokemonTypes.Bug;
+        case "rock":
+            return PokemonTypes.Rock;
+        case "ghost":
+            return PokemonTypes.Ghost;
+        case "dragon":
+            return PokemonTypes.Dragon;
+        case "dark":
+            return PokemonTypes.Dark;
+        case "steel":
+            return PokemonTypes.Steel;
+        case "fairy":
+            return PokemonTypes.Fairy;
+        default:
+            throw new Error("Not a Pokemon Type");
+    }
+}
+
+export { TextToPokemonType };
 export type { PokemonTypes };
