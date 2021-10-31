@@ -13,7 +13,7 @@ function Meta(props: MetaData): JSX.Element {
             <img src={props.data.sprites.front_default} alt={props.data.name} />
             <h1>{name}</h1>
 
-            <div>
+            <div className="flex">
                 {props.data.types.map((type) => {
                     const typeName = type.type.name;
 
@@ -23,6 +23,7 @@ function Meta(props: MetaData): JSX.Element {
                             style={{
                                 backgroundColor: TextToPokemonType(typeName),
                             }}
+                            className="px-2 py-1 mx-0.5 uppercase text-sm"
                         >
                             {typeName.toPascalCase()}
                         </p>
