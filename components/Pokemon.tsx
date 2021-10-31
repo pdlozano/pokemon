@@ -13,12 +13,15 @@ function Pokemon(props: PokemonData): JSX.Element {
     }
 
     return (
-        <div>
-            <Meta data={props.data} />
+        <details>
+            <summary>
+                <Meta data={props.data} />
+            </summary>
+            
             <Stats data={props.data} />
 
             {props.children}
-        </div>
+        </details>
     );
 }
 
