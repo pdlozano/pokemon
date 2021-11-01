@@ -1,7 +1,8 @@
 import Pokemon from "../components/Pokemon";
+import MoveSet from "../components/MoveSet";
 import { PokemonClient } from "pokenode-ts";
 import { useState, useEffect } from "react";
-import type { Pokemon as PokemonType } from "pokenode-ts";
+import type { Pokemon as PokemonType, PokemonMove } from "pokenode-ts";
 
 const api = new PokemonClient();
 
@@ -9,6 +10,7 @@ function PokemonPage(): JSX.Element {
     const [text, setText] = useState<string>("gengar");
     const [active, setActive] = useState<string>("gengar");
     const [data, setData] = useState<PokemonType>();
+    const [moves, setMoves] = useState<Array<PokemonMove>>([]);
 
     useEffect(
         function () {
@@ -38,7 +40,21 @@ function PokemonPage(): JSX.Element {
                 Search
             </button>
 
-            <Pokemon data={data}></Pokemon>
+            <Pokemon data={data}>
+                <MoveSet
+                    moves={moves || []}
+                    setMoves={() => {
+                        const randomMove =
+                            data?.moves[
+                                Math.floor(Math.random() * data?.moves.length)
+                            ];
+
+                        if (randomMove !== undefined) {
+                            setMoves(moves?.concat([randomMove]));
+                        }
+                    }}
+                />
+            </Pokemon>
         </div>
     );
 }
