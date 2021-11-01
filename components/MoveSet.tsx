@@ -6,7 +6,7 @@ const api = new MoveClient();
 
 type MoveSetData = {
     moves: Readonly<Array<PokemonMove>>;
-    setMoves: () => null;
+    setMoves: () => void;
 };
 
 function MoveSet(props: MoveSetData): JSX.Element {
