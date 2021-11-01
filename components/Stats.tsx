@@ -34,21 +34,23 @@ function Stats(props: StatsData): JSX.Element {
 
     return (
         <table className="w-full">
-            {stats.map((stat) => {
-                const name = stat.stat.name;
+            <tbody>
+                {stats.map((stat) => {
+                    const name = stat.stat.name;
 
-                return (
-                    <tr key={name}>
-                        <td className="text-right w-40">{name}</td>
-                        <td className="text-right pl-2 w-14">
-                            {stat.base_stat}
-                        </td>
-                        <td>
-                            <StatMeter name={name} value={stat.base_stat} />
-                        </td>
-                    </tr>
-                );
-            })}
+                    return (
+                        <tr key={name}>
+                            <td className="text-right w-40">{name}</td>
+                            <td className="text-right pl-2 w-14">
+                                {stat.base_stat}
+                            </td>
+                            <td>
+                                <StatMeter name={name} value={stat.base_stat} />
+                            </td>
+                        </tr>
+                    );
+                })}
+            </tbody>
         </table>
     );
 }
