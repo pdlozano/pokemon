@@ -12,7 +12,6 @@ function PokemonPage(): JSX.Element {
 
     useEffect(
         function () {
-            console.log(active);
             api.getPokemonByName(active)
                 .then((data) => setData(data))
                 .catch((error) => console.error(error));
