@@ -1,5 +1,5 @@
 import { Pokemon } from "pokenode-ts";
-import { Action } from "./actions";
+import { Action } from "../actions";
 import type { ActionCreator } from "./index";
 
 type State = {
