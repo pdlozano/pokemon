@@ -2,20 +2,20 @@ import { Pokemon } from "pokenode-ts";
 import { Action } from "./actions";
 
 type ActionCreator = {
-    action: Action;
+    type: Action;
     payload: any;
 };
 
 function addPokemon(pokemon: Pokemon): ActionCreator {
     return {
-        action: Action.ADD_POKEMON,
+        type: Action.ADD_POKEMON,
         payload: pokemon,
     };
 }
 
 function changePokemon(oldPokemon: Pokemon, pokemon: Pokemon): ActionCreator {
     return {
-        action: Action.CHANGE_POKEMON,
+        type: Action.CHANGE_POKEMON,
         payload: {
             old: oldPokemon,
             new: pokemon,
@@ -25,7 +25,7 @@ function changePokemon(oldPokemon: Pokemon, pokemon: Pokemon): ActionCreator {
 
 function removePokemon(pokemon: Pokemon): ActionCreator {
     return {
-        action: Action.REMOVE_POKEMON,
+        type: Action.REMOVE_POKEMON,
         payload: pokemon,
     };
 }

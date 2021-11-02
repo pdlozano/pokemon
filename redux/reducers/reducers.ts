@@ -14,7 +14,7 @@ function pokemonReducer(
     state: Readonly<State> = initialState,
     action: ActionCreator
 ): State {
-    if (action.action === Action.ADD_POKEMON) {
+    if (action.type === Action.ADD_POKEMON) {
         if (state.pokemon.length === 6) {
             throw new Error("Cannot have more than 6 pokemon in a team");
         }
@@ -23,7 +23,7 @@ function pokemonReducer(
             ...state,
             pokemon: state.pokemon.concat(action.payload),
         };
-    } else if (action.action === Action.CHANGE_POKEMON) {
+    } else if (action.type === Action.CHANGE_POKEMON) {
         const index = state.pokemon.indexOf(action.payload.old);
         const newPokemon = state.pokemon
             .slice(0, index)
@@ -34,7 +34,7 @@ function pokemonReducer(
             ...state,
             pokemon: newPokemon,
         };
-    } else if (action.action === Action.REMOVE_POKEMON) {
+    } else if (action.type === Action.REMOVE_POKEMON) {
         const index = state.pokemon.indexOf(action.payload);
         const newPokemon = state.pokemon
             .slice(0, index)
