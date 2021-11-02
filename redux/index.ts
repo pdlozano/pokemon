@@ -31,3 +31,4 @@ function removePokemon(pokemon: Pokemon): ActionCreator {
 }
 
 export { addPokemon, changePokemon, removePokemon };
+export type { ActionCreator };
