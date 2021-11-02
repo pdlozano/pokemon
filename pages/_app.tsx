@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
+import { wrapper } from "../redux/store";
 
 declare global {
     // to access the global type String
@@ -22,4 +23,4 @@ function MyApp({ Component, pageProps }: AppProps) {
     return <Component {...pageProps} />;
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);
