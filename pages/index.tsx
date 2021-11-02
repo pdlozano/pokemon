@@ -1,25 +1,26 @@
 import Pokemon from "../components/Pokemon";
 import MoveSet from "../components/MoveSet";
+import { useSelector, useDispatch } from "react-redux";
 import { PokemonClient } from "pokenode-ts";
 import { useState, useEffect } from "react";
-import type { Pokemon as PokemonType, PokemonMove } from "pokenode-ts";
+import { actions } from "../redux/actions";
 
 const api = new PokemonClient();
 
 function PokemonPage(): JSX.Element {
+    const state = useSelector((state) => state);
+    const dispatch = useDispatch();
+
     const [text, setText] = useState<string>("gengar");
     const [active, setActive] = useState<string>("gengar");
-    const [data, setData] = useState<PokemonType>();
-    const [moves, setMoves] = useState<Array<PokemonMove>>([]);
 
-    useEffect(
-        function () {
-            api.getPokemonByName(active)
-                .then((data) => setData(data))
-                .catch((error) => console.error(error));
-        },
-        [active]
-    );
+    useEffect(() => {
+        api.getPokemonByName(active)
+            .then((data) => {
+                dispatch(actions.pokemon.add(data));
+            })
+            .catch((error) => console.error(error));
+    }, [active]);
 
     return (
         <div>
@@ -40,21 +41,18 @@ function PokemonPage(): JSX.Element {
                 Search
             </button>
 
-            <Pokemon data={data}>
-                <MoveSet
-                    moves={moves || []}
-                    setMoves={() => {
-                        const randomMove =
-                            data?.moves[
-                                Math.floor(Math.random() * data?.moves.length)
-                            ];
+            {state.pokemonData.pokemon.map((pokemon: any) => {
+                return (
+                    <Pokemon data={pokemon.pokemon}>
+                        <MoveSet
+                            moves={pokemon.moves || []}
+                            setMoves={() => {}}
+                        />
+                    </Pokemon>
+                );
+            })}
 
-                        if (randomMove !== undefined) {
-                            setMoves(moves?.concat([randomMove]));
-                        }
-                    }}
-                />
-            </Pokemon>
+            <div></div>
         </div>
     );
 }
