@@ -2,15 +2,36 @@ import { Pokemon, PokemonMove } from "pokenode-ts";
 import { Action } from "../actions/actions";
 import type { ActionCreator } from "../actions";
 
+type PokemonData = {
+    pokemon: Pokemon;
+    moves: {
+        1: PokemonMove | null;
+        2: PokemonMove | null;
+        3: PokemonMove | null;
+        4: PokemonMove | null;
+    };
+};
+
 type State = {
-    pokemon: Array<{
-        pokemon: Pokemon;
-        moves: Array<PokemonMove>;
-    }>;
+    pokemon: {
+        1: PokemonData | null;
+        2: PokemonData | null;
+        3: PokemonData | null;
+        4: PokemonData | null;
+        5: PokemonData | null;
+        6: PokemonData | null;
+    };
 };
 
 const initialState: State = {
-    pokemon: [],
+    pokemon: {
+        1: null,
+        2: null,
+        3: null,
+        4: null,
+        5: null,
+        6: null,
+    },
 };
 
 function pokemonReducer(
