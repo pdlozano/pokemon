@@ -1,4 +1,4 @@
-import { Pokemon } from "pokenode-ts";
+import { Pokemon, PokemonMove } from "pokenode-ts";
 import { Action } from "./actions";
 
 type ActionCreator = {
@@ -30,5 +30,26 @@ function removePokemon(pokemon: Pokemon): ActionCreator {
     };
 }
 
-export { addPokemon, changePokemon, removePokemon };
+function addPokemonMove(pokemon: Pokemon, move: PokemonMove): ActionCreator {
+    return {
+        type: Action.ADD_POKEMON_MOVE,
+        payload: {
+            pokemon,
+            move,
+        },
+    };
+}
+
+const actions = {
+    pokemon: {
+        add: addPokemon,
+        change: changePokemon,
+        remove: removePokemon,
+    },
+    move: {
+        add: addPokemonMove,
+    },
+};
+
+export { actions };
 export type { ActionCreator };
