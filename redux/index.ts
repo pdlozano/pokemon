@@ -1,21 +1,21 @@
 import { Pokemon } from "pokenode-ts";
-import { ADD_POKEMON, CHANGE_POKEMON, REMOVE_POKEMON } from "./actions";
+import { Action } from "./actions";
 
-type Action = {
-    action: string;
+type ActionCreator = {
+    action: Action;
     payload: any;
 };
 
-function addPokemon(pokemon: Pokemon): Action {
+function addPokemon(pokemon: Pokemon): ActionCreator {
     return {
-        action: ADD_POKEMON,
+        action: Action.ADD_POKEMON,
         payload: pokemon,
     };
 }
 
-function changePokemon(oldPokemon: Pokemon, pokemon: Pokemon): Action {
+function changePokemon(oldPokemon: Pokemon, pokemon: Pokemon): ActionCreator {
     return {
-        action: CHANGE_POKEMON,
+        action: Action.CHANGE_POKEMON,
         payload: {
             old: oldPokemon,
             new: pokemon,
@@ -23,9 +23,9 @@ function changePokemon(oldPokemon: Pokemon, pokemon: Pokemon): Action {
     };
 }
 
-function removePokemon(pokemon: Pokemon): Action {
+function removePokemon(pokemon: Pokemon): ActionCreator {
     return {
-        action: REMOVE_POKEMON,
+        action: Action.REMOVE_POKEMON,
         payload: pokemon,
     };
 }
