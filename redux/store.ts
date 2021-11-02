@@ -1,5 +1,4 @@
-import { createStore, Store } from "redux";
-import { Context, createWrapper } from "next-redux-wrapper";
+import { createStore } from "redux";
 import rootReducer from "./reducers";
 
 const initialState = {
@@ -8,9 +7,5 @@ const initialState = {
     },
 };
 
-const makeStore = (context: Context) => createStore(rootReducer, initialState);
-const wrapper = createWrapper(makeStore, {
-    debug: true,
-});
-
-export { wrapper };
+const store = createStore(rootReducer, initialState);
+export { store };

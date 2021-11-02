@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { wrapper } from "../redux/store";
+import { store } from "../redux/store";
+import { Provider } from "react-redux";
 
 declare global {
     // to access the global type String
@@ -20,7 +21,11 @@ String.prototype.toPascalCase = function (): string {
 };
 
 function MyApp({ Component, pageProps }: AppProps) {
-    return <Component {...pageProps} />;
+    return (
+        <Provider store={store}>
+            <Component {...pageProps} />
+        </Provider>
+    );
 }
 
-export default wrapper.withRedux(MyApp);
+export default MyApp;
