@@ -1,9 +1,7 @@
 import Pokemon from "../components/Pokemon";
 import MoveSet from "../components/MoveSet";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { PokemonClient } from "pokenode-ts";
-import { useState, useEffect } from "react";
-import { actions } from "../redux/actions";
 import AddPokemon from "../components/AddPokemon";
 import { State } from "../redux/reducers/reducers";
 
@@ -26,7 +24,7 @@ function PokemonPage(): JSX.Element {
 
                 return (
                     <Pokemon data={pokemon.pokemon} key={key}>
-                        {/* <MoveSet pokemon={pokemon.pokemon} item={key} /> */}
+                        {/* <MoveSet data={pokemon.pokemon} item={key} /> */}
                     </Pokemon>
                 );
             })}
