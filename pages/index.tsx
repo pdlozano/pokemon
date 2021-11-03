@@ -17,7 +17,7 @@ function PokemonPage(): JSX.Element {
     useEffect(() => {
         api.getPokemonByName(active)
             .then((data) => {
-                dispatch(actions.pokemon.add(data));
+                dispatch(actions.pokemon.add(1, data));
             })
             .catch((error) => console.error(error));
     }, [active]);
@@ -41,13 +41,12 @@ function PokemonPage(): JSX.Element {
                 Search
             </button>
 
-            {state.pokemonData.pokemon.map((pokemon: any) => {
+            {Object.entries(state.pokemonData.pokemon).map((data) => {
+                const [key, pokemon]: [string, any] = data;
+
                 return (
-                    <Pokemon data={pokemon.pokemon}>
-                        <MoveSet
-                            moves={pokemon.moves || []}
-                            setMoves={() => {}}
-                        />
+                    <Pokemon data={pokemon.pokemon} key={key}>
+                        <MoveSet pokemon={pokemon.pokemon} item={key} />
                     </Pokemon>
                 );
             })}

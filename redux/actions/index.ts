@@ -1,41 +1,71 @@
-import { Pokemon, PokemonMove } from "pokenode-ts";
+import { Pokemon, Move } from "pokenode-ts";
 import { Action } from "./actions";
 
 type ActionCreator = {
     type: Action;
-    payload: any;
+    payload: {
+        item: number;
+        moveItem?: number;
+        data?: Move | Pokemon;
+    };
 };
 
-function addPokemon(pokemon: Pokemon): ActionCreator {
+function addPokemon(item: number, pokemon: Pokemon): ActionCreator {
     return {
         type: Action.ADD_POKEMON,
-        payload: pokemon,
-    };
-}
-
-function changePokemon(oldPokemon: Pokemon, pokemon: Pokemon): ActionCreator {
-    return {
-        type: Action.CHANGE_POKEMON,
         payload: {
-            old: oldPokemon,
-            new: pokemon,
+            item,
+            data: {
+                pokemon,
+                moves: {
+                    0: null,
+                    1: null,
+                    2: null,
+                    3: null,
+                },
+            },
         },
     };
 }
 
-function removePokemon(pokemon: Pokemon): ActionCreator {
+function changePokemon(item: number, pokemon: Pokemon): ActionCreator {
     return {
-        type: Action.REMOVE_POKEMON,
-        payload: pokemon,
+        type: Action.CHANGE_POKEMON,
+        payload: {
+            item,
+            data: {
+                pokemon,
+                moves: {
+                    0: null,
+                    1: null,
+                    2: null,
+                    3: null,
+                },
+            },
+        },
     };
 }
 
-function addPokemonMove(pokemon: Pokemon, move: PokemonMove): ActionCreator {
+function removePokemon(item: number): ActionCreator {
+    return {
+        type: Action.REMOVE_POKEMON,
+        payload: {
+            item,
+        },
+    };
+}
+
+function addPokemonMove(
+    item: number,
+    moveItem: number,
+    move: Move
+): ActionCreator {
     return {
         type: Action.ADD_POKEMON_MOVE,
         payload: {
-            pokemon,
-            move,
+            item,
+            moveItem,
+            data: move,
         },
     };
 }
