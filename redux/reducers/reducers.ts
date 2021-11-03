@@ -79,3 +79,4 @@ function pokemonReducer(
 }
 
 export { pokemonReducer };
+export type { State };

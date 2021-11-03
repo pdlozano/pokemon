@@ -4,49 +4,29 @@ import { useSelector, useDispatch } from "react-redux";
 import { PokemonClient } from "pokenode-ts";
 import { useState, useEffect } from "react";
 import { actions } from "../redux/actions";
+import AddPokemon from "../components/AddPokemon";
+import { State } from "../redux/reducers/reducers";
 
 const api = new PokemonClient();
 
 function PokemonPage(): JSX.Element {
-    const state = useSelector((state) => state);
-    const dispatch = useDispatch();
-
-    const [text, setText] = useState<string>("gengar");
-    const [active, setActive] = useState<string>("gengar");
-
-    useEffect(() => {
-        api.getPokemonByName(active)
-            .then((data) => {
-                dispatch(actions.pokemon.add(1, data));
-            })
-            .catch((error) => console.error(error));
-    }, [active]);
+    const state = useSelector(
+        (state: { pokemonData: State }) => state.pokemonData
+    );
 
     return (
         <div>
-            <input
-                type="text"
-                onChange={(event) => {
-                    event.preventDefault();
-                    setText(event.target.value);
-                }}
-                value={text}
-            />
-            <button
-                onClick={(event) => {
-                    event.preventDefault();
-                    setActive(text.toLowerCase());
-                }}
-            >
-                Search
-            </button>
+            <AddPokemon api={api} />
+            {Object.entries(state.pokemon).map((data) => {
+                const [key, pokemon] = data;
 
-            {Object.entries(state.pokemonData.pokemon).map((data) => {
-                const [key, pokemon]: [string, any] = data;
+                if (pokemon === null) {
+                    return <div>No Pokemon</div>;
+                }
 
                 return (
                     <Pokemon data={pokemon.pokemon} key={key}>
-                        <MoveSet pokemon={pokemon.pokemon} item={key} />
+                        {/* <MoveSet pokemon={pokemon.pokemon} item={key} /> */}
                     </Pokemon>
                 );
             })}
