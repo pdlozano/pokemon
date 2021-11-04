@@ -1,5 +1,6 @@
 import type { Pokemon as PokemonType } from "pokenode-ts";
 import { TextToPokemonType } from "../modules/PokemonTypes";
+import Type from "./Type";
 
 type MetaData = {
     data: PokemonType;
@@ -9,26 +10,18 @@ function Meta(props: MetaData): JSX.Element {
     const name = props.data.name.toPascalCase();
 
     return (
-        <div>
+        <div className="flex">
             <img src={props.data.sprites.front_default} alt={props.data.name} />
-            <h1>{name}</h1>
 
-            <div className="flex">
-                {props.data.types.map((type) => {
-                    const typeName = type.type.name;
+            <div>
+                <h1>{name}</h1>
 
-                    return (
-                        <p
-                            key={typeName}
-                            style={{
-                                backgroundColor: TextToPokemonType(typeName),
-                            }}
-                            className="px-2 py-1 mx-0.5 uppercase text-sm"
-                        >
-                            {typeName.toPascalCase()}
-                        </p>
-                    );
-                })}
+                <div className="flex">
+                    {props.data.types.map((type, index) => {
+                        const typeName = TextToPokemonType(type.type.name);
+                        return <Type data={typeName} key={index} />;
+                    })}
+                </div>
             </div>
         </div>
     );

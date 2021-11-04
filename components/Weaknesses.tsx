@@ -1,9 +1,10 @@
 // This is a Weaknesses component
 // 1. Looks at all type weaknesses of Pokemon
-// 2. Removes all type weaknesses that are covered by a Pokemon move
+// 2. Highlights which type weaknesses are most common
 import { useSelector } from "react-redux";
 import getWeaknesses from "../modules/Weaknesses";
-import { TextToPokemonType, PokemonTypeToText } from "../modules/PokemonTypes";
+import { TextToPokemonType } from "../modules/PokemonTypes";
+import Type from "./Type";
 
 function Weaknesses(): JSX.Element {
     const state = useSelector((state) => state.pokemonData.pokemon);
@@ -42,13 +43,7 @@ function Weaknesses(): JSX.Element {
         <div>
             <h2>Weaknesses</h2>
             {pokemonWeaknesses.map((weakness) => (
-                <div
-                    style={{
-                        background: weakness,
-                    }}
-                >
-                    {PokemonTypeToText(weakness)}
-                </div>
+                <Type data={weakness} />
             ))}
         </div>
     );
