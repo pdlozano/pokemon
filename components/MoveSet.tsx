@@ -24,7 +24,6 @@ function MoveSet(props: MoveSetData): JSX.Element {
     const availableMoves = state.pokemon.moves.map((move) => move.move.name);
     const moveSet = Object.entries(state.moves).map((item) => {
         const [key, val] = item;
-        console.log(val);
 
         if (val !== null) {
             return <Move key={key} data={val} />;
