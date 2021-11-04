@@ -18,8 +18,16 @@ function Weaknesses(): JSX.Element {
     const moves = Object.values(state)
         .map((data) => {
             const items = Object.values(data.moves);
+            return items.reduce((prev, item) => {
+                const typeName = TextToPokemonType(item.type.name);
+                const damaging = item.accuracy !== null;
 
-            return items.map((item) => TextToPokemonType(item.type.name));
+                if (!damaging) {
+                    return prev.concat([]);
+                }
+
+                return prev.concat([typeName]);
+            }, []);
         })
         .flat();
 
