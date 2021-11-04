@@ -56,16 +56,25 @@ function pokemonReducer(
                 },
             };
         case Action.ADD_POKEMON_MOVE:
-            return {
-                ...state,
-                pokemon: {
-                    ...state.pokemon,
-                    [action.payload.item]: {
-                        ...state.pokemon[action.payload.item],
-                        [action.payload.moveItem || 0]: action.payload.data,
+            const data = state.pokemon[action.payload.item];
+            if (
+                action.payload.moveItem !== null &&
+                action.payload.moveItem !== undefined
+            ) {
+                return {
+                    ...state,
+                    pokemon: {
+                        ...state.pokemon,
+                        [action.payload.item]: {
+                            ...data,
+                            moves: {
+                                ...data?.moves,
+                                [action.payload.moveItem]: action.payload.data,
+                            },
+                        },
                     },
-                },
-            };
+                };
+            }
         default:
             return state;
     }

@@ -24,7 +24,7 @@ function PokemonPage(): JSX.Element {
 
                 return (
                     <Pokemon data={pokemon.pokemon} key={key}>
-                        {/* <MoveSet data={pokemon.pokemon} item={key} /> */}
+                        <MoveSet data={pokemon.pokemon} item={key} />
                     </Pokemon>
                 );
             })}

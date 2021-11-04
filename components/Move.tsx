@@ -1,68 +1,27 @@
-import type { PokemonMove, Move, MoveClient } from "pokenode-ts";
-import { PokemonTypes, TextToPokemonType } from "../modules/PokemonTypes";
-import { useState, useEffect } from "react";
+import type { Move } from "pokenode-ts";
+import { TextToPokemonType } from "../modules/PokemonTypes";
 
 type MoveData = {
-    data: PokemonMove;
-    api: MoveClient;
-};
-
-type Data = {
-    name: string;
-    pp: number;
-    accuracy: number;
-    damage_class: string;
-    type: PokemonTypes;
+    data: Move;
 };
 
 function Move(props: MoveData): JSX.Element {
-    const [move, setMove] = useState<Move>();
-    const [data, setData] = useState<Data>();
+    console.log(props.data);
 
-    useEffect(() => {
-        props.api
-            .getMoveByName(props.data.move.name)
-            .then((res) => setMove(res))
-            .catch((err) => console.error(err));
-    }, []);
-
-    useEffect(() => {
-        if (move === undefined) {
-            return;
-        }
-
-        const name = move.names.filter(
-            (item) => item.language.name === "en"
-        )[0];
-        const pp = move.pp;
-        const accuracy = move.accuracy;
-        const damage_class = move.damage_class.name;
-        const type = TextToPokemonType(move.type.name);
-
-        setData({
-            name: name.name,
-            pp,
-            accuracy,
-            damage_class,
-            type,
-        });
-    }, [move]);
-
-    if (data === undefined) {
-        return <></>;
-    }
+    const { names, pp, accuracy, damage_class, type } = props.data;
+    const { name } = names.filter((item) => item.language.name === "en")[0];
 
     return (
         <div
             className="btn-move"
             style={{
-                background: data.type,
+                background: TextToPokemonType(type.name),
             }}
         >
-            <p>{data.name}</p>
-            <p>{data.pp}</p>
-            <p>{data.accuracy}</p>
-            <p>{data.damage_class}</p>
+            <p>{name}</p>
+            <p>{pp}</p>
+            <p>{accuracy}</p>
+            <p>{damage_class.name}</p>
         </div>
     );
 }
