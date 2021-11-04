@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { PokemonClient } from "pokenode-ts";
 import AddPokemon from "../components/AddPokemon";
 import { State } from "../redux/reducers/reducers";
+import Weaknesses from "../components/Weaknesses";
 
 const api = new PokemonClient();
 
@@ -28,8 +29,7 @@ function PokemonPage(): JSX.Element {
                     </Pokemon>
                 );
             })}
-
-            <div></div>
+            <Weaknesses />
         </div>
     );
 }
