@@ -33,8 +33,11 @@ function PokemonPage(): JSX.Element {
                         );
                     })}
                 </div>
-                <Coverage />
-                <Weaknesses />
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <Coverage />
+                    <Weaknesses />
+                </div>
             </main>
         </div>
     );
