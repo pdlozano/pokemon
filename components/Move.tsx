@@ -6,8 +6,6 @@ type MoveData = {
 };
 
 function Move(props: MoveData): JSX.Element {
-    console.log(props.data);
-
     const { names, pp, accuracy, damage_class, type } = props.data;
     const { name } = names.filter((item) => item.language.name === "en")[0];
 
