@@ -13,9 +13,3 @@
         @apply text-4xl;
     }
 }
-
-@layer components {
-    .btn-move {
-        @apply w-1/2;
-    }
-}

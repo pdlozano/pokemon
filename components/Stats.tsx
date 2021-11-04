@@ -1,5 +1,14 @@
 import type { Pokemon as PokemonType } from "pokenode-ts";
 
+const statsNames = {
+    hp: "HP",
+    attack: "Attack",
+    defense: "Defense",
+    "special-attack": "Special Attack",
+    "special-defense": "Special Defense",
+    speed: "Speed",
+};
+
 type StatMeterData = {
     name: string;
     value: number;
@@ -36,7 +45,7 @@ function Stats(props: StatsData): JSX.Element {
         <table className="w-full">
             <tbody>
                 {stats.map((stat) => {
-                    const name = stat.stat.name;
+                    const name = statsNames[stat.stat.name];
 
                     return (
                         <tr key={name}>

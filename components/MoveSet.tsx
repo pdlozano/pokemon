@@ -54,7 +54,7 @@ function MoveSet(props: MoveSetData): JSX.Element {
         );
     });
 
-    return <div>{moveSet}</div>;
+    return <div className="grid grid-cols-2 grid-rows-2 gap-2">{moveSet}</div>;
 }
 
 export default MoveSet;

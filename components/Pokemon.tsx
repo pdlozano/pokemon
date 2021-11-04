@@ -13,7 +13,7 @@ function Pokemon(props: PokemonData): JSX.Element {
     }
 
     return (
-        <details>
+        <details className="w-full border-2 px-4 py-2">
             <summary>
                 <Meta data={props.data} />
             </summary>

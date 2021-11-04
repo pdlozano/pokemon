@@ -15,21 +15,25 @@ function PokemonPage(): JSX.Element {
 
     return (
         <div>
-            <AddPokemon api={api} />
-            {Object.entries(state.pokemon).map((data) => {
-                const [key, pokemon] = data;
+            <main className="w-11/12 md:w-10/12 mx-auto">
+                <AddPokemon api={api} />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    {Object.entries(state.pokemon).map((data) => {
+                        const [key, pokemon] = data;
 
-                if (pokemon === null) {
-                    return <div>No Pokemon</div>;
-                }
+                        if (pokemon === null) {
+                            return <div>No Pokemon</div>;
+                        }
 
-                return (
-                    <Pokemon data={pokemon.pokemon} key={key}>
-                        <MoveSet data={pokemon.pokemon} item={key} />
-                    </Pokemon>
-                );
-            })}
-            <Weaknesses />
+                        return (
+                            <Pokemon data={pokemon.pokemon} key={key}>
+                                <MoveSet data={pokemon.pokemon} item={key} />
+                            </Pokemon>
+                        );
+                    })}
+                </div>
+                <Weaknesses />
+            </main>
         </div>
     );
 }

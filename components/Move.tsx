@@ -6,20 +6,22 @@ type MoveData = {
 };
 
 function Move(props: MoveData): JSX.Element {
-    const { names, pp, accuracy, damage_class, type } = props.data;
+    const { names, pp, accuracy, type } = props.data;
     const { name } = names.filter((item) => item.language.name === "en")[0];
+
+    const accuracyOrStatus = accuracy ? `Accuracy: ${accuracy}` : "Status Move";
 
     return (
         <div
-            className="btn-move"
+            className="border-4 p-2 rounded-lg"
             style={{
-                background: TextToPokemonType(type.name),
+                borderColor: TextToPokemonType(type.name),
             }}
         >
-            <p>{name}</p>
-            <p>{pp}</p>
-            <p>{accuracy}</p>
-            <p>{damage_class.name}</p>
+            <p className="text-center font-bold text-lg sm:text-xl">{name}</p>
+            <p className="text-center text-sm">
+                PP: {pp} / {accuracyOrStatus}
+            </p>
         </div>
     );
 }
