@@ -18,6 +18,14 @@ function Move(props: MoveData): JSX.Element {
                 borderColor: TextToPokemonType(type.name),
             }}
         >
+            <p
+                className="text-center text-xs uppercase font-bold"
+                style={{
+                    color: TextToPokemonType(type.name),
+                }}
+            >
+                {type.name}
+            </p>
             <p className="text-center font-bold text-lg sm:text-xl">{name}</p>
             <p className="text-center text-sm">
                 PP: {pp} / {accuracyOrStatus}
