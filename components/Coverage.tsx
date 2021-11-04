@@ -7,9 +7,13 @@ function Coverage(): JSX.Element {
     const data = useSelector((state) => state.pokemonData.pokemon);
     const items = Object.values(data)
         .map((item) => {
-            return Object.values(item.moves).map((move) =>
-                TextToPokemonType(move.type.name)
-            );
+            return Object.values(item.moves).reduce((prev, next) => {
+                if (next.accuracy === null) {
+                    return prev.concat([]);
+                }
+
+                return prev.concat([TextToPokemonType(next.type.name)]);
+            }, []);
         })
         .flat();
     const coverage = new Set(getCoverage(items));
