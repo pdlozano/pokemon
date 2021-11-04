@@ -40,6 +40,7 @@ type StatsData = {
 
 function Stats(props: StatsData): JSX.Element {
     const stats = props.data.stats;
+    const total = stats.reduce((prev, next) => prev + next.base_stat, 0);
 
     return (
         <table className="w-full">
@@ -59,6 +60,11 @@ function Stats(props: StatsData): JSX.Element {
                         </tr>
                     );
                 })}
+                <tr>
+                    <td className="text-right w-40 font-bold">Total</td>
+                    <td className="text-right pl-2 w-14 font-bold">{total}</td>
+                    <td></td>
+                </tr>
             </tbody>
         </table>
     );
