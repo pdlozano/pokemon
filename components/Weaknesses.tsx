@@ -1,9 +1,6 @@
-// This is a Weaknesses component
-// 1. Looks at all type weaknesses of Pokemon
-// 2. Highlights which type weaknesses are most common
 import { useSelector } from "react-redux";
 import getWeaknesses from "../modules/Weaknesses";
-import { TextToPokemonType } from "../modules/PokemonTypes";
+import { PokemonTypes, TextToPokemonType } from "../modules/PokemonTypes";
 import Type from "./Type";
 
 function Weaknesses(): JSX.Element {
@@ -16,35 +13,20 @@ function Weaknesses(): JSX.Element {
             return getWeaknesses(types);
         })
         .flat();
-    const moves = Object.values(state)
-        .map((data) => {
-            const items = Object.values(data.moves);
-            return items.reduce((prev, item) => {
-                const typeName = TextToPokemonType(item.type.name);
-                const damaging = item.accuracy !== null;
+    const data = new Set(pokemonTypes);
 
-                if (!damaging) {
-                    return prev.concat([]);
-                }
-
-                return prev.concat([typeName]);
-            }, []);
-        })
-        .flat();
-
-    const moveCoverage = new Set(moves);
-    const pokemonWeaknesses = Array.from(new Set(pokemonTypes)).filter(
-        (item) => {
-            return !moveCoverage.has(item);
-        }
-    );
+    const types = Object.values(PokemonTypes).map((type) => (
+        <Type data={type} key={type} disabled={!data.has(type)} />
+    ));
 
     return (
         <div>
             <h2>Weaknesses</h2>
-            {pokemonWeaknesses.map((weakness) => (
-                <Type data={weakness} />
-            ))}
+            <p>
+                Lists all pokemon types where at least one of your members has a
+                weakness to
+            </p>
+            <div className="flex flex-wrap">{types}</div>
         </div>
     );
 }
