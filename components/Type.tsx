@@ -2,6 +2,7 @@ import { PokemonTypes, PokemonTypeToText } from "../modules/PokemonTypes";
 
 type TypeData = {
     data: PokemonTypes;
+    disabled?: boolean;
 };
 
 function Type(props: TypeData): JSX.Element {
@@ -10,8 +11,8 @@ function Type(props: TypeData): JSX.Element {
     return (
         <div
             style={{
-                borderColor: props.data,
-                color: props.data,
+                borderColor: props.disabled ? "gray" : props.data,
+                color: props.disabled ? "gray" : props.data,
             }}
             className="px-2 py-1 mx-0.5 my-2 uppercase text-sm rounded border-2 font-bold bg-white"
         >
