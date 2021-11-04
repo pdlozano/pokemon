@@ -6,7 +6,14 @@ type ActionCreator = {
     payload: {
         item: number;
         moveItem?: number;
-        data?: Move | Pokemon;
+        data?:
+            | {
+                  pokemon: Pokemon;
+                  moves: {
+                      [n: number]: Move | null;
+                  };
+              }
+            | Move;
     };
 };
 
