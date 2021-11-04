@@ -6,12 +6,12 @@ type MoveData = {
 };
 
 function Move(props: MoveData): JSX.Element {
-    const { names, pp, accuracy, damage_class, type } = props.data;
+    const { names, accuracy, damage_class, type, power } = props.data;
     const { name } = names.filter((item) => item.language.name === "en")[0];
 
-    const accuracyOrStatus =
+    const statusOrNot =
         damage_class.name !== "status"
-            ? `Accuracy: ${accuracy || 100}`
+            ? `Power: ${power} / Accuracy: ${accuracy || 100}`
             : "Status Move";
 
     return (
@@ -30,9 +30,7 @@ function Move(props: MoveData): JSX.Element {
                 {type.name}
             </p>
             <p className="text-center font-bold text-lg sm:text-xl">{name}</p>
-            <p className="text-center text-sm">
-                PP: {pp} / {accuracyOrStatus}
-            </p>
+            <p className="text-center text-sm">{statusOrNot}</p>
         </div>
     );
 }
