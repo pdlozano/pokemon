@@ -6,10 +6,13 @@ type MoveData = {
 };
 
 function Move(props: MoveData): JSX.Element {
-    const { names, pp, accuracy, type } = props.data;
+    const { names, pp, accuracy, damage_class, type } = props.data;
     const { name } = names.filter((item) => item.language.name === "en")[0];
 
-    const accuracyOrStatus = accuracy ? `Accuracy: ${accuracy}` : "Status Move";
+    const accuracyOrStatus =
+        damage_class.name !== "status"
+            ? `Accuracy: ${accuracy || 100}`
+            : "Status Move";
 
     return (
         <div

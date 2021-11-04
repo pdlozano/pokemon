@@ -8,7 +8,8 @@ function Coverage(): JSX.Element {
     const items = Object.values(data)
         .map((item) => {
             return Object.values(item.moves).reduce((prev, next) => {
-                if (next.accuracy === null) {
+                console.log(next);
+                if (next.damage_class.name === "status") {
                     return prev.concat([]);
                 }
 
