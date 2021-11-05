@@ -10,12 +10,7 @@ async function initialize() {
         },
         {
             name: "lucario",
-            moves: [
-                "swords-dance",
-                "shadow-claw",
-                "ice-punch",
-                "extreme-speed",
-            ],
+            moves: ["swords-dance", "shadow-claw", "ice-punch", "close-combat"],
         },
         {
             name: "garchomp",
