@@ -5,6 +5,7 @@ import { PokemonClient } from "pokenode-ts";
 import { State } from "../redux/reducers/reducers";
 import Weaknesses from "../components/Weaknesses";
 import Coverage from "../components/Coverage";
+import AverageStats from "../components/AverageStats";
 
 const api = new PokemonClient();
 
@@ -36,6 +37,8 @@ function PokemonPage(): JSX.Element {
                     <Coverage />
                     <Weaknesses />
                 </div>
+
+                <AverageStats />
             </main>
         </div>
     );
