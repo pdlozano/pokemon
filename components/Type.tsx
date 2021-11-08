@@ -1,4 +1,4 @@
-import { PokemonTypes, PokemonTypeToText } from "../modules/PokemonTypes";
+import { PokemonTypes, PokemonTypeToText } from "../modules/pokemonTypes";
 
 type TypeData = {
     data: PokemonTypes;

@@ -1,4 +1,4 @@
-import { PokemonTypes } from "./PokemonTypes";
+import { PokemonTypes } from "./pokemonTypes";
 
 function getCoverage(types: Array<PokemonTypes>): Array<PokemonTypes> {
     /*

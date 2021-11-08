@@ -1,5 +1,5 @@
 import type { Move } from "pokenode-ts";
-import { TextToPokemonType } from "../modules/PokemonTypes";
+import { TextToPokemonType } from "../modules/pokemonTypes";
 
 type MoveData = {
     data: Move;

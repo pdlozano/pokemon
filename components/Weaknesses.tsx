@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import getWeaknesses from "../modules/Weaknesses";
-import { PokemonTypes, TextToPokemonType } from "../modules/PokemonTypes";
+import getWeaknesses from "../modules/weaknesses";
+import { PokemonTypes, TextToPokemonType } from "../modules/pokemonTypes";
 import Type from "./Type";
 
 function Weaknesses(): JSX.Element {

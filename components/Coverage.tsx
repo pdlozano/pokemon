@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import getCoverage from "../modules/Coverage";
-import { PokemonTypes, TextToPokemonType } from "../modules/PokemonTypes";
+import getCoverage from "../modules/coverage";
+import { PokemonTypes, TextToPokemonType } from "../modules/pokemonTypes";
 import Type from "./Type";
 
 function Coverage(): JSX.Element {

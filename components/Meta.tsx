@@ -1,5 +1,5 @@
 import type { Pokemon as PokemonType } from "pokenode-ts";
-import { TextToPokemonType } from "../modules/PokemonTypes";
+import { TextToPokemonType } from "../modules/pokemonTypes";
 import Type from "./Type";
 
 type MetaData = {

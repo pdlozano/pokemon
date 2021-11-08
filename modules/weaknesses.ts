@@ -1,4 +1,4 @@
-import { PokemonTypes } from "./PokemonTypes";
+import { PokemonTypes } from "./pokemonTypes";
 
 const data = {
     [PokemonTypes.Normal]: {
