@@ -12,11 +12,12 @@ function Type(props: TypeData): JSX.Element {
         <div
             style={{
                 borderColor: props.disabled ? "gray" : props.data,
-                color: props.disabled ? "gray" : props.data,
+                background: props.disabled ? "white" : props.data,
+                color: props.disabled ? "gray" : "white",
             }}
-            className="px-2 py-1 mx-0.5 my-2 uppercase text-sm rounded border-2 font-bold bg-white"
+            className="px-2 py-1 mx-0.5 my-2 uppercase text-sm rounded border-2 font-bold"
         >
-            <p>{typeName.toPascalCase()}</p>
+            <p>{typeName}</p>
         </div>
     );
 }
