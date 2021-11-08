@@ -71,3 +71,4 @@ function Stats(props: StatsData): JSX.Element {
 }
 
 export default Stats;
+export { StatMeter };
