@@ -1,10 +1,7 @@
 import type { Move } from "pokenode-ts";
 import { TextToPokemonType } from "../modules/pokemonTypes";
-import { useState } from "react";
-import Change from "./Change";
 import { useDispatch } from "react-redux";
 import { actions } from "../redux/actions";
-import { textToPokemonMove } from "../modules/textToPokemon";
 
 type MoveData = {
     data: Move;

@@ -25,8 +25,7 @@ function Pokemon(props: PokemonData): JSX.Element {
                         }
                     });
                 }}
-                pokemon={true}
-                move={false}
+                list="pokemon-list"
             >
                 Add Pokemon
             </Change>

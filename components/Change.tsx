@@ -3,14 +3,11 @@ import { useState } from "react";
 type ChangeData = {
     func: (text: string) => void;
     children?: JSX.Element | Array<JSX.Element> | string;
-    available?: Array<string>;
-    move: boolean;
-    pokemon?: boolean;
+    list: string;
 };
 
 function Change(props: ChangeData) {
     const [text, setText] = useState<string>("");
-    const random = Math.floor(Math.random() * 1000);
 
     return (
         <div>
@@ -21,18 +18,9 @@ function Change(props: ChangeData) {
                     setText(event.target.value);
                 }}
                 value={text}
-                list={props.pokemon ? "pokemon-list" : "items" + random}
+                list={props.list}
                 className="w-full border-2 border-black bg-white font-bold px-2 py-1 uppercase mb-2"
             />
-            {props.pokemon ? (
-                ""
-            ) : (
-                <datalist id={"items" + random}>
-                    {props.available?.map((item) => (
-                        <option key={item}>{item}</option>
-                    ))}
-                </datalist>
-            )}
             <button
                 onClick={(event) => {
                     event.preventDefault();

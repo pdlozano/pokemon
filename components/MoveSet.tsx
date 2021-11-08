@@ -57,17 +57,24 @@ function MoveSet(props: MoveSetData): JSX.Element {
                         alert("Move not available");
                     }
                 }}
-                available={availableMoves.map((text) => {
-                    return text.replaceAll("-", " ");
-                })}
-                move={true}
+                list={"moves-" + state.pokemon.name}
             >
                 Change Move
             </Change>
         );
     });
 
-    return <div className="grid grid-cols-2 grid-rows-2 gap-2">{moveSet}</div>;
+    return (
+        <div className="grid grid-cols-2 grid-rows-2 gap-2">
+            {moveSet}
+            <datalist id={"moves-" + state.pokemon.name}>
+                {availableMoves.map((text) => {
+                    const data = text.replaceAll("-", " ");
+                    return <option key={text}>{data}</option>;
+                })}
+            </datalist>
+        </div>
+    );
 }
 
 export default MoveSet;
