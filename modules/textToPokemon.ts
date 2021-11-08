@@ -1,9 +1,15 @@
-import { Pokemon, PokemonClient } from "pokenode-ts";
+import { Pokemon, MainClient, Move } from "pokenode-ts";
 
-const api = new PokemonClient();
+const api = new MainClient();
 
 async function textToPokemon(name: string): Promise<Pokemon | void> {
-    return api.getPokemonByName(name).catch((err) => console.error(err));
+    return api.pokemon
+        .getPokemonByName(name)
+        .catch((err) => console.error(err));
 }
 
-export default textToPokemon;
+async function textToPokemonMove(name: string): Promise<Move | void> {
+    return api.move.getMoveByName(name).catch((err) => console.error(err));
+}
+
+export { textToPokemon, textToPokemonMove };
