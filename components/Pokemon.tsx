@@ -5,7 +5,6 @@ import Change from "./Change";
 import { useDispatch } from "react-redux";
 import { actions } from "../redux/actions";
 import { textToPokemon } from "../modules/textToPokemon";
-import { allPokemon } from "../redux/initialData.json";
 
 type PokemonData = {
     data: PokemonType | undefined;
@@ -26,7 +25,7 @@ function Pokemon(props: PokemonData): JSX.Element {
                         }
                     });
                 }}
-                available={allPokemon}
+                pokemon={true}
                 move={false}
             >
                 Add Pokemon

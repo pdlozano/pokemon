@@ -3,8 +3,9 @@ import { useState } from "react";
 type ChangeData = {
     func: (text: string) => void;
     children?: JSX.Element | Array<JSX.Element> | string;
-    available: Array<string>;
+    available?: Array<string>;
     move: boolean;
+    pokemon?: boolean;
 };
 
 function Change(props: ChangeData) {
@@ -20,14 +21,18 @@ function Change(props: ChangeData) {
                     setText(event.target.value);
                 }}
                 value={text}
-                list={"items" + random}
+                list={props.pokemon ? "pokemon-list" : "items" + random}
                 className="w-full border-2 border-black bg-white font-bold px-2 py-1 uppercase mb-2"
             />
-            <datalist id={"items" + random}>
-                {props.available?.map((item) => (
-                    <option key={item}>{item}</option>
-                ))}
-            </datalist>
+            {props.pokemon ? (
+                ""
+            ) : (
+                <datalist id={"items" + random}>
+                    {props.available?.map((item) => (
+                        <option key={item}>{item}</option>
+                    ))}
+                </datalist>
+            )}
             <button
                 onClick={(event) => {
                     event.preventDefault();

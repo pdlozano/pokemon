@@ -1,14 +1,12 @@
 import Pokemon from "../components/Pokemon";
 import MoveSet from "../components/MoveSet";
 import { useSelector } from "react-redux";
-import { PokemonClient } from "pokenode-ts";
 import { State } from "../redux/reducers/reducers";
 import Weaknesses from "../components/Weaknesses";
 import Coverage from "../components/Coverage";
 import AverageStats from "../components/AverageStats";
 import Header from "../components/Header";
-
-const api = new PokemonClient();
+import { allPokemon } from "../redux/initialData.json";
 
 function PokemonPage(): JSX.Element {
     const state = useSelector(
@@ -43,6 +41,12 @@ function PokemonPage(): JSX.Element {
 
                 <AverageStats />
             </main>
+
+            <datalist id="pokemon-list">
+                {allPokemon.map((item) => (
+                    <option key={item}>{item}</option>
+                ))}
+            </datalist>
         </div>
     );
 }
