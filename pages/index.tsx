@@ -18,16 +18,16 @@ function PokemonPage(): JSX.Element {
         <div>
             <main className="w-11/12 md:w-10/12 mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                    {Object.entries(state.pokemon).map((data) => {
+                    {Object.entries(state.pokemon).map((data, index) => {
                         const [key, pokemon] = data;
 
-                        if (pokemon === null) {
-                            return <div>No Pokemon</div>;
-                        }
-
                         return (
-                            <Pokemon data={pokemon.pokemon} key={key}>
-                                <MoveSet data={pokemon.pokemon} item={key} />
+                            <Pokemon
+                                data={pokemon?.pokemon}
+                                key={key}
+                                item={index}
+                            >
+                                <MoveSet data={pokemon?.pokemon} item={key} />
                             </Pokemon>
                         );
                     })}

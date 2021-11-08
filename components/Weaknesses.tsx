@@ -6,6 +6,7 @@ import Type from "./Type";
 function Weaknesses(): JSX.Element {
     const state = useSelector((state) => state.pokemonData.pokemon);
     const pokemonTypes = Object.values(state)
+        .filter((item) => item !== null)
         .map((data) => {
             const types = data.pokemon.types.map((type) =>
                 TextToPokemonType(type.type.name)

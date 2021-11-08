@@ -6,8 +6,13 @@ import Type from "./Type";
 function Coverage(): JSX.Element {
     const data = useSelector((state) => state.pokemonData.pokemon);
     const items = Object.values(data)
+        .filter((item) => item !== null)
         .map((item) => {
             return Object.values(item.moves).reduce((prev, next) => {
+                if (next === null) {
+                    return prev;
+                }
+
                 if (next.damage_class.name === "status") {
                     return prev.concat([]);
                 }

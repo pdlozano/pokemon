@@ -8,11 +8,15 @@ import type { State } from "../redux/reducers/reducers";
 const api = new MoveClient();
 
 type MoveSetData = {
-    data: Pokemon;
+    data: Pokemon | undefined;
     item: string;
 };
 
 function MoveSet(props: MoveSetData): JSX.Element {
+    if (props.data === undefined) {
+        return <div></div>;
+    }
+
     const state = useSelector((state: { pokemonData: State }) => {
         return state.pokemonData.pokemon[parseInt(props.item)];
     });

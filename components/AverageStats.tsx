@@ -1,20 +1,32 @@
 import { useSelector } from "react-redux";
-import {State} from "../redux/reducers/reducers";
+import { State } from "../redux/reducers/reducers";
+import { StatMeter } from "./Stats";
 
 type StatsData = {
-    hp: number,
-    attack: number,
-    defense: number,
-    'special-attack': number,
-    'special-defense': number,
-    speed: number,
-}
+    hp: number;
+    attack: number;
+    defense: number;
+    "special-attack": number;
+    "special-defense": number;
+    speed: number;
+};
 
 function AverageStats(): JSX.Element {
-    const state = useSelector((state: { pokemonData: State }) => state.pokemonData.pokemon);
+    const state = useSelector(
+        (state: { pokemonData: State }) => state.pokemonData.pokemon
+    );
+    if (state === null) {
+        return <div></div>;
+    }
     const stats = Object.values(state).map((item) => {
         if (item === null) {
-            throw new Error("State is null");
+            return {
+                hp: 0,
+                attack: 0,
+                defense: 0,
+                specialDefense: 0,
+                speed: 0,
+            };
         }
 
         const pokemonType = item.pokemon.types.map((type) => type.type.name);
@@ -22,16 +34,16 @@ function AverageStats(): JSX.Element {
             return {
                 ...prev,
                 [next.stat.name]: next.base_stat,
-            }
+            };
         }, {});
-        const specialAttack = data['special-attack'];
+        const specialAttack = data["special-attack"];
         const attack = data.attack;
 
         const effectiveAttack = Object.values(item.moves)
             .filter((move) => move?.damage_class.name !== "status")
             .map((move) => {
                 if (move === null) {
-                    throw new Error("Move data is null");
+                    return 0;
                 }
 
                 const stab =
@@ -39,36 +51,47 @@ function AverageStats(): JSX.Element {
                 const accuracy = move.accuracy / 100 || 1;
                 const movePower = move.power === null ? 1 : move.power / 100;
                 const attackPower =
-                    move.damage_class.name === "special" ? specialAttack : attack;
+                    move.damage_class.name === "special"
+                        ? specialAttack
+                        : attack;
 
                 return stab * accuracy * movePower * attackPower;
             });
-        const averageEffectiveAttack = effectiveAttack.reduce((prev, next) => prev + next, 0) / effectiveAttack.length;
+        const averageEffectiveAttack =
+            effectiveAttack.reduce((prev, next) => prev + next, 0) /
+            effectiveAttack.length;
 
         return {
             hp: data.hp,
             attack: averageEffectiveAttack,
             defense: data.defense,
-            specialDefense: data['special-defense'],
+            specialDefense: data["special-defense"],
             speed: data.speed,
         };
     });
-    const averageStats: StatsData = stats.reduce((prev: StatsData, next: StatsData) => {
-        return {
-            hp: prev.hp + next.hp / stats.length,
-            attack: prev.attack + next.attack / stats.length,
-            defense: prev.defense + next.defense / stats.length,
-            specialDefense: prev.specialDefense + next.specialDefense / stats.length,
-            speed: prev.speed + next.speed / stats.length,
+    const averageStats: StatsData = stats.reduce(
+        (prev: StatsData, next: StatsData) => {
+            return {
+                hp: prev.hp + next.hp / stats.length,
+                attack: prev.attack + next.attack / stats.length,
+                defense: prev.defense + next.defense / stats.length,
+                specialDefense:
+                    prev.specialDefense + next.specialDefense / stats.length,
+                speed: prev.speed + next.speed / stats.length,
+            };
+        },
+        {
+            hp: 0,
+            attack: 0,
+            defense: 0,
+            specialDefense: 0,
+            speed: 0,
         }
-    }, {
-        hp: 0,
-        attack: 0,
-        defense: 0,
-        specialDefense: 0,
-        speed: 0,
-    });
-    console.log(averageStats);
+    );
+    const total: number = Object.values(averageStats).reduce(
+        (prev, next) => prev + next,
+        0
+    );
 
     return (
         <div>
@@ -77,7 +100,7 @@ function AverageStats(): JSX.Element {
                 Looks at the average stats of your team. Calculation is as
                 follows:
             </p>
-            <ol>
+            <ol className="list-decimal my-4">
                 <li>
                     The average of HP, Defense, Special Defense, and Speed are
                     taken as is
@@ -89,22 +112,32 @@ function AverageStats(): JSX.Element {
                     pokemon typing and 1 otherwise.
                 </li>
                 <li>The effective attacks are then averaged</li>
-                <table>
-                    <tbody>
-                        {Object.entries(averageStats).map((item) => {
-                            const [key, value] = item;
-                            return (<tr key={key}>
-                                <td>{key}</td>
-                                <td>{Math.floor(value * 100) / 100}</td>
-                            </tr>);
-                        })}
-                    <tr>
-                        <td>Total</td>
-                        <td>{Object.values(averageStats).reduce((prev, next) => prev + next, 0)}</td>
-                    </tr>
-                    </tbody>
-                </table>
             </ol>
+            <table className="w-full">
+                <tbody>
+                    {Object.entries(averageStats).map((item) => {
+                        const [key, value] = item;
+                        const val = Math.floor(value * 100) / 100;
+
+                        return (
+                            <tr key={key}>
+                                <td className="w-5/12">{key}</td>
+                                <td className="w-2/12">{val}</td>
+                                <td className="w-5/12">
+                                    <StatMeter name={key} value={val} />
+                                </td>
+                            </tr>
+                        );
+                    })}
+                    <tr>
+                        <td className="w-5/12">Total</td>
+                        <td className="w-2/12">
+                            {Math.floor(total * 100) / 100}
+                        </td>
+                        <td className="w-5/12"></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     );
 }
