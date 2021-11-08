@@ -56,11 +56,11 @@ function pokemonReducer(
                 },
             };
         case Action.ADD_POKEMON_MOVE:
-            const data = state.pokemon[action.payload.item];
             if (
                 action.payload.moveItem !== null &&
                 action.payload.moveItem !== undefined
             ) {
+                const data = state.pokemon[action.payload.item];
                 return {
                     ...state,
                     pokemon: {
@@ -70,6 +70,26 @@ function pokemonReducer(
                             moves: {
                                 ...data?.moves,
                                 [action.payload.moveItem]: action.payload.data,
+                            },
+                        },
+                    },
+                };
+            }
+        case Action.REMOVE_POKEMON_MOVE:
+            if (
+                action.payload.moveItem !== null &&
+                action.payload.moveItem !== undefined
+            ) {
+                const data = state.pokemon[action.payload.item];
+                return {
+                    ...state,
+                    pokemon: {
+                        ...state.pokemon,
+                        [action.payload.item]: {
+                            ...data,
+                            moves: {
+                                ...data?.moves,
+                                [action.payload.moveItem]: null,
                             },
                         },
                     },

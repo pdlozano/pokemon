@@ -1,9 +1,14 @@
 import { createStore } from "redux";
 import rootReducer from "./reducers";
-import initialData from "./initialData.json";
+import { pokemon } from "./initialData.json";
+import { State } from "./reducers/reducers";
 
-const initialState = {
-    pokemonData: initialData,
+const initialState: {
+    pokemonData: State;
+} = {
+    pokemonData: {
+        pokemon,
+    },
 };
 
 const store = createStore(rootReducer, initialState);

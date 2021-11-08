@@ -26,7 +26,14 @@ function MoveSet(props: MoveSetData): JSX.Element {
         const [key, val] = item;
 
         if (val !== null) {
-            return <MoveComponent key={key} data={val} />;
+            return (
+                <MoveComponent
+                    key={key}
+                    data={val}
+                    item={parseInt(props.item)}
+                    index={index}
+                />
+            );
         }
 
         return (

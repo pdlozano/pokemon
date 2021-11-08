@@ -6,6 +6,7 @@ import { State } from "../redux/reducers/reducers";
 import Weaknesses from "../components/Weaknesses";
 import Coverage from "../components/Coverage";
 import AverageStats from "../components/AverageStats";
+import Header from "../components/Header";
 
 const api = new PokemonClient();
 
@@ -16,6 +17,8 @@ function PokemonPage(): JSX.Element {
 
     return (
         <div>
+            <Header />
+
             <main className="w-11/12 md:w-10/12 mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {Object.entries(state.pokemon).map((data, index) => {

@@ -77,6 +77,16 @@ function addPokemonMove(
     };
 }
 
+function removePokemonMove(item: number, moveItem: number): ActionCreator {
+    return {
+        type: Action.REMOVE_POKEMON_MOVE,
+        payload: {
+            item,
+            moveItem,
+        },
+    };
+}
+
 const actions = {
     pokemon: {
         add: addPokemon,
@@ -85,6 +95,7 @@ const actions = {
     },
     move: {
         add: addPokemonMove,
+        remove: removePokemonMove,
     },
 };
 
