@@ -11,7 +11,7 @@ const data = {
         vulnerable: [
             PokemonTypes.Water,
             PokemonTypes.Ground,
-            PokemonTypes.Ground,
+            PokemonTypes.Rock,
         ],
         strong: [
             PokemonTypes.Fire,
@@ -59,13 +59,13 @@ const data = {
     },
     [PokemonTypes.Ice]: {
         invulnerable: [],
-        vulnerable: [PokemonTypes.Ice],
-        strong: [
+        vulnerable: [
             PokemonTypes.Fire,
             PokemonTypes.Fighting,
             PokemonTypes.Rock,
             PokemonTypes.Steel,
         ],
+        strong: [PokemonTypes.Ice],
     },
     [PokemonTypes.Fighting]: {
         invulnerable: [],
