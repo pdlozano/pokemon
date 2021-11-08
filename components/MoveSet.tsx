@@ -60,6 +60,7 @@ function MoveSet(props: MoveSetData): JSX.Element {
                 available={availableMoves.map((text) => {
                     return text.replaceAll("-", " ");
                 })}
+                move={true}
             >
                 Change Move
             </Change>

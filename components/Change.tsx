@@ -3,7 +3,8 @@ import { useState } from "react";
 type ChangeData = {
     func: (text: string) => void;
     children?: JSX.Element | Array<JSX.Element> | string;
-    available?: Array<string>;
+    available: Array<string>;
+    move: boolean;
 };
 
 function Change(props: ChangeData) {
@@ -19,8 +20,8 @@ function Change(props: ChangeData) {
                     setText(event.target.value);
                 }}
                 value={text}
-                className="border-2 border-black"
                 list={"items" + random}
+                className="w-full border-2 border-black bg-white font-bold px-2 py-1 uppercase mb-2"
             />
             <datalist id={"items" + random}>
                 {props.available?.map((item) => (
@@ -32,6 +33,7 @@ function Change(props: ChangeData) {
                     event.preventDefault();
                     props.func(text);
                 }}
+                className="w-full border-2 border-red-800 bg-white font-bold px-2 py-1 uppercase hover:bg-red-200"
             >
                 {props.children}
             </button>
