@@ -1,6 +1,6 @@
 import type { Pokemon as PokemonType } from "pokenode-ts";
 
-const statsNames = {
+const statsNames: any = {
     hp: "HP",
     attack: "Attack",
     defense: "Defense",
@@ -23,7 +23,7 @@ function StatMeter(props: StatMeterData): JSX.Element {
             id={props.name}
             min={min}
             max={max}
-            low={max * 0}
+            low={0}
             optimum={max * 0.5}
             high={max * 0.7}
             value={props.value}
@@ -63,7 +63,7 @@ function Stats(props: StatsData): JSX.Element {
                 <tr>
                     <td className="text-right w-40 font-bold">Total</td>
                     <td className="text-right pl-2 w-14 font-bold">{total}</td>
-                    <td></td>
+                    <td>{""}</td>
                 </tr>
             </tbody>
         </table>

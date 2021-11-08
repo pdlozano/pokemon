@@ -2,7 +2,7 @@ import { useState } from "react";
 
 type ChangeData = {
     func: (text: string) => void;
-    children?: JSX.Element | Array<JSX.Element> | string[];
+    children?: JSX.Element | Array<JSX.Element> | string;
     available?: Array<string>;
 };
 

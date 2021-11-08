@@ -1,29 +1,24 @@
 import type { Pokemon } from "pokenode-ts";
-import { MoveClient } from "pokenode-ts";
 import { useSelector, useDispatch } from "react-redux";
 import { actions } from "../redux/actions";
-import Move from "./Move";
+import MoveComponent from "./MoveComponent";
 import type { State } from "../redux/reducers/reducers";
 import Change from "./Change";
 import { textToPokemonMove } from "../modules/textToPokemon";
 
-const api = new MoveClient();
 type MoveSetData = {
     data: Pokemon | undefined;
     item: string;
 };
 
 function MoveSet(props: MoveSetData): JSX.Element {
-    if (props.data === undefined) {
-        return <div></div>;
-    }
-
     const state = useSelector((state: { pokemonData: State }) => {
         return state.pokemonData.pokemon[parseInt(props.item)];
     });
     const dispatch = useDispatch();
-    if (state === null) {
-        return <div></div>;
+
+    if (state === null || props.data === undefined) {
+        return <div>{""}</div>;
     }
 
     const availableMoves = state.pokemon.moves.map((move) => move.move.name);
@@ -31,11 +26,12 @@ function MoveSet(props: MoveSetData): JSX.Element {
         const [key, val] = item;
 
         if (val !== null) {
-            return <Move key={key} data={val} />;
+            return <MoveComponent key={key} data={val} />;
         }
 
         return (
             <Change
+                key={key}
                 func={(text) => {
                     const move = text.replaceAll(" ", "-");
                     if (availableMoves.indexOf(move) !== -1) {

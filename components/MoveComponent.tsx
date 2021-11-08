@@ -5,7 +5,7 @@ type MoveData = {
     data: Move;
 };
 
-function Move(props: MoveData): JSX.Element {
+function MoveComponent(props: MoveData): JSX.Element {
     const { names, accuracy, damage_class, type, power } = props.data;
     const { name } = names.filter((item) => item.language.name === "en")[0];
 
@@ -35,4 +35,4 @@ function Move(props: MoveData): JSX.Element {
     );
 }
 
-export default Move;
+export default MoveComponent;

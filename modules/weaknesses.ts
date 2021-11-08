@@ -188,7 +188,7 @@ function getWeaknesses(
     /*
      * NOTE: Input either the type or dual typing of Pokemon. This
      * module will make sense of the actual weaknesses of each
-     * Pokemon. The output is the weaknesses or vulnerabilites of the pokemon.
+     * Pokemon. The output is the weaknesses or vulnerabilities of the pokemon.
      */
     // invulnerable; // 0 Damage FROM
     // vulnerable; // 2x Damage FROM
