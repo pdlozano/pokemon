@@ -27,6 +27,7 @@ function Pokemon(props: PokemonData): JSX.Element {
                     });
                 }}
                 available={allPokemon}
+                move={false}
             >
                 Add Pokemon
             </Change>
@@ -36,29 +37,16 @@ function Pokemon(props: PokemonData): JSX.Element {
     return (
         <details className="w-full border-2 px-4 py-2">
             <summary>
-                <Meta data={props.data} />
-                <Change
-                    func={(text) => {
-                        textToPokemon(text).then((res) => {
-                            if (res) {
-                                dispatch(
-                                    actions.pokemon.change(props.item, res)
-                                );
-                            }
-                        });
-                    }}
-                    available={allPokemon}
-                >
-                    Change
-                </Change>
                 <button
                     onClick={(event) => {
                         event.preventDefault();
                         dispatch(actions.pokemon.remove(props.item));
                     }}
+                    className="float-right mt-1 uppercase text-xs text-red-800 rounded font-bold"
                 >
-                    Remove
+                    X
                 </button>
+                <Meta data={props.data} />
             </summary>
 
             <Stats data={props.data} />

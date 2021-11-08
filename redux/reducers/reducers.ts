@@ -39,14 +39,6 @@ function pokemonReducer(
                     [action.payload.item]: action.payload.data,
                 },
             };
-        case Action.CHANGE_POKEMON:
-            return {
-                ...state,
-                pokemon: {
-                    ...state.pokemon,
-                    [action.payload.item]: action.payload.data,
-                },
-            };
         case Action.REMOVE_POKEMON:
             return {
                 ...state,
