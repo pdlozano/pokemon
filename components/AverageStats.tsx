@@ -67,7 +67,9 @@ function AverageStats(): JSX.Element {
         return prev.concat([
             {
                 hp: statsData.hp,
-                attack: averageEffectiveAttack,
+                attack: isNaN(averageEffectiveAttack)
+                    ? 0
+                    : averageEffectiveAttack,
                 defense: statsData.defense,
                 specialDefense: statsData["special-defense"],
                 speed: statsData.speed,
