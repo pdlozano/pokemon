@@ -18,57 +18,62 @@ function AverageStats(): JSX.Element {
     if (state === null) {
         return <div></div>;
     }
-    const stats = Object.values(state)
-        .map((item) => {
-            if (item === null) {
-                return null;
-            }
+    const stats = Object.values(state).reduce((prev, next) => {
+        // Filter - Remove all null values
+        if (next === null) {
+            return prev;
+        }
 
-            const pokemonType = item.pokemon.types.map(
-                (type) => type.type.name
-            );
-            const data: StatsData = item.pokemon.stats.reduce((prev, next) => {
-                return {
-                    ...prev,
-                    [next.stat.name]: next.base_stat,
-                };
-            }, {});
-            const specialAttack = data["special-attack"];
-            const attack = data.attack;
+        // Map - Process Data
+        const pokemonType = next.pokemon.types.map((type) => type.type.name);
+        const statsData = next.pokemon.stats.reduce(
+            (prev, next) => ({
+                ...prev,
+                [next.stat.name]: next.base_stat,
+            }),
+            {}
+        );
 
-            const effectiveAttack = Object.values(item.moves)
-                .filter((move) => move?.damage_class.name !== "status")
-                .map((move) => {
-                    if (move === null) {
-                        return null;
-                    }
+        const effectiveAttack = Object.values(next.moves).reduce(
+            (prevVal, nextAttack) => {
+                // Filter - Ignore status moves
+                if (
+                    nextAttack === null ||
+                    nextAttack?.damage_class.name === "status"
+                ) {
+                    return prevVal;
+                }
 
-                    const stab =
-                        pokemonType.indexOf(move.type.name) !== -1 ? 1.5 : 1;
-                    const accuracy = move.accuracy / 100 || 1;
-                    const movePower =
-                        move.power === null ? 1 : move.power / 100;
-                    const attackPower =
-                        move.damage_class.name === "special"
-                            ? specialAttack
-                            : attack;
+                const stab =
+                    pokemonType.indexOf(nextAttack.type.name) !== -1 ? 1.5 : 1;
+                const accuracy = nextAttack.accuracy / 100 || 1;
+                const movePower =
+                    nextAttack.power === null ? 1 : nextAttack.power / 100;
+                const attackPower =
+                    nextAttack.damage_class.name === "special"
+                        ? statsData["special-attack"]
+                        : statsData.attack;
 
-                    return stab * accuracy * movePower * attackPower;
-                })
-                .filter((item) => item !== null);
-            const averageEffectiveAttack =
-                effectiveAttack.reduce((prev, next) => prev + next, 0) /
-                effectiveAttack.length;
+                return prevVal.concat([
+                    stab * accuracy * movePower * attackPower,
+                ]);
+            },
+            []
+        );
+        const averageEffectiveAttack =
+            effectiveAttack.reduce((prev, next) => prev + next, 0) /
+            effectiveAttack.length;
 
-            return {
-                hp: data.hp,
+        return prev.concat([
+            {
+                hp: statsData.hp,
                 attack: averageEffectiveAttack,
-                defense: data.defense,
-                specialDefense: data["special-defense"],
-                speed: data.speed,
-            };
-        })
-        .filter((item) => item !== null);
+                defense: statsData.defense,
+                specialDefense: statsData["special-defense"],
+                speed: statsData.speed,
+            },
+        ]);
+    }, []);
     const averageStats: StatsData = stats.reduce(
         (prev: StatsData, next: StatsData) => {
             return {

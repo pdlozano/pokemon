@@ -83,11 +83,9 @@ function getCoverage(types: Array<PokemonTypes>): Array<PokemonTypes> {
 
     const typeSet = new Set(types);
     const moveCoverage = new Set(
-        Array.from(typeSet)
-            .map((item) => {
-                return coverage[item];
-            })
-            .flat()
+        Array.from(typeSet).reduce((prev: Array<PokemonTypes>, next) => {
+            return prev.concat(coverage[next]);
+        }, [])
     );
 
     return Array.from(moveCoverage);

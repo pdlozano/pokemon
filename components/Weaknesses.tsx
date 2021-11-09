@@ -2,18 +2,27 @@ import { useSelector } from "react-redux";
 import getWeaknesses from "../modules/weaknesses";
 import { PokemonTypes, TextToPokemonType } from "../modules/pokemonTypes";
 import Type from "./Type";
+import { State } from "../redux/reducers/reducers";
 
 function Weaknesses(): JSX.Element {
-    const state = useSelector((state) => state.pokemonData.pokemon);
-    const pokemonTypes = Object.values(state)
-        .filter((item) => item !== null)
-        .map((data) => {
-            const types = data.pokemon.types.map((type) =>
-                TextToPokemonType(type.type.name)
-            );
-            return getWeaknesses(types);
-        })
-        .flat();
+    const state = useSelector(
+        (state: { pokemonData: State }) => state.pokemonData.pokemon
+    );
+    const pokemonTypes = Object.values(state).reduce((prev, next) => {
+        // Filter - Remove if item is null
+        if (next === null) {
+            return prev;
+        }
+
+        // Mapping - Turn it into a PokemonType
+        const types = next.pokemon.types.map((t) =>
+            TextToPokemonType(t.type.name)
+        );
+        const weaknesses: Array<PokemonTypes> = getWeaknesses(types);
+
+        // Flat - Get only one array
+        return prev.concat(weaknesses);
+    }, []);
     const data = new Set(pokemonTypes);
 
     const types = Object.values(PokemonTypes).map((type) => (

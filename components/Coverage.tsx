@@ -8,26 +8,22 @@ function Coverage(): JSX.Element {
     const data = useSelector(
         (state: { pokemonData: State }) => state.pokemonData.pokemon
     );
-    const items = Object.values(data)
-        .filter((item) => item !== null)
-        .map((item) => {
-            if (item === null) {
-                return null;
+    const items = Object.values(data).reduce((prev, next) => {
+        // Filter - Remove null values
+        if (next === null) {
+            return prev;
+        }
+
+        const result = Object.values(next.moves).reduce((prevVal, nextVal) => {
+            if (nextVal === null || nextVal.damage_class.name === "status") {
+                return prevVal;
             }
 
-            return Object.values(item.moves).reduce((prev, next) => {
-                if (next === null) {
-                    return prev;
-                }
+            return prevVal.concat([TextToPokemonType(nextVal.type.name)]);
+        }, []);
 
-                if (next.damage_class.name === "status") {
-                    return prev.concat([]);
-                }
-
-                return prev.concat([TextToPokemonType(next.type.name)]);
-            }, []);
-        })
-        .flat();
+        return prev.concat(result);
+    }, []);
     const coverage = new Set(getCoverage(items));
 
     const types = Object.values(PokemonTypes).map((type) => (
