@@ -7,6 +7,7 @@ import Coverage from "../components/Coverage";
 import AverageStats from "../components/AverageStats";
 import Header from "../components/Header";
 import { allPokemon } from "../redux/initialData.json";
+import { Footer } from "../components/Footer";
 
 function PokemonPage(): JSX.Element {
     const state = useSelector(
@@ -41,6 +42,8 @@ function PokemonPage(): JSX.Element {
 
                 <AverageStats />
             </main>
+
+            <Footer />
 
             <datalist id="pokemon-list">
                 {allPokemon.map((item) => (
