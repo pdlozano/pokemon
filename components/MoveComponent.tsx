@@ -16,7 +16,7 @@ function MoveComponent(props: MoveData): JSX.Element {
 
     const statusOrNot =
         damage_class.name !== "status"
-            ? `Power: ${power} / Accuracy: ${accuracy || 100}`
+            ? `Power: ${power || 100} / Accuracy: ${accuracy || 100}`
             : "Status Move";
 
     return (
