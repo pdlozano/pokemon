@@ -11,13 +11,9 @@ declare global {
 }
 
 String.prototype.toPascalCase = function (): string {
-    return this.replace(new RegExp(/[-_]+/, "g"), " ")
-        .replace(new RegExp(/[^\w\s]/, "g"), "")
-        .replace(
-            new RegExp(/\s+(.)(\w*)/, "g"),
-            (_, _2, _3) => `${_2.toUpperCase() + _3.toLowerCase()}`
-        )
-        .replace(new RegExp(/\w/), (s) => s.toUpperCase());
+    return this.split(" ")
+        .map((text) => text[0].toUpperCase() + text.substring(1))
+        .join(" ");
 };
 
 function MyApp({ Component, pageProps }: AppProps) {
