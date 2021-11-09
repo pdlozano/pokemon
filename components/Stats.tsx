@@ -1,4 +1,5 @@
 import type { Pokemon as PokemonType } from "pokenode-ts";
+import { Meter } from "./Meter";
 
 const statsNames: any = {
     hp: "HP",
@@ -55,7 +56,7 @@ function Stats(props: StatsData): JSX.Element {
                                 {stat.base_stat}
                             </td>
                             <td>
-                                <StatMeter name={name} value={stat.base_stat} />
+                                <Meter val={stat.base_stat} />
                             </td>
                         </tr>
                     );
