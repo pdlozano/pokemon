@@ -6,12 +6,12 @@ function Meter(props: MeterData): JSX.Element {
     const width = (props.val / 255) * 100;
     const color =
         props.val < 60
-            ? "red"
+            ? "var(--red)"
             : props.val < 90
-            ? "yellow"
+            ? "var(--yellow)"
             : props.val < 120
-            ? "lightgreen"
-            : "green";
+            ? "var(--lightgreen)"
+            : "var(--green)";
 
     return (
         <div>

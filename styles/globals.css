@@ -3,6 +3,13 @@
 @tailwind utilities;
 
 @layer base {
+    :root {
+        --red: theme('colors.red.500');
+        --yellow: theme('colors.yellow.300');
+        --lightgreen: theme('colors.green.400');
+        --green: theme('colors.green.900');
+    }
+
     h1,
     h2,
     h3 {
