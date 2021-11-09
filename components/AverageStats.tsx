@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { State } from "../redux/reducers/reducers";
-import { StatMeter } from "./Stats";
+import { Meter } from "./Meter";
 
 type StatsData = {
     hp: number;
@@ -124,7 +124,7 @@ function AverageStats(): JSX.Element {
                                 <td className="w-5/12">{key}</td>
                                 <td className="w-2/12">{val}</td>
                                 <td className="w-5/12">
-                                    <StatMeter name={key} value={val} />
+                                    <Meter val={val} />
                                 </td>
                             </tr>
                         );

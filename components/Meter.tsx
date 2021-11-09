@@ -4,7 +4,14 @@ type MeterData = {
 
 function Meter(props: MeterData): JSX.Element {
     const width = (props.val / 255) * 100;
-    const color = width < 20 ? "red" : "green";
+    const color =
+        props.val < 60
+            ? "red"
+            : props.val < 90
+            ? "yellow"
+            : props.val < 120
+            ? "lightgreen"
+            : "green";
 
     return (
         <div>

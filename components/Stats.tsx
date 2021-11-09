@@ -10,31 +10,6 @@ const statsNames: any = {
     speed: "Speed",
 };
 
-type StatMeterData = {
-    name: string;
-    value: number;
-};
-
-function StatMeter(props: StatMeterData): JSX.Element {
-    const min = 0;
-    const max = 180;
-
-    return (
-        <meter
-            id={props.name}
-            min={min}
-            max={max}
-            low={0}
-            optimum={max * 0.5}
-            high={max * 0.7}
-            value={props.value}
-            className="w-full h-5"
-        >
-            Base Stat is {props.value}
-        </meter>
-    );
-}
-
 type StatsData = {
     data: PokemonType;
 };
@@ -72,4 +47,3 @@ function Stats(props: StatsData): JSX.Element {
 }
 
 export default Stats;
-export { StatMeter };
