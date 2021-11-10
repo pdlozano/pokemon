@@ -1,13 +1,10 @@
-import { useSelector } from "react-redux";
 import getCoverage from "../modules/coverage";
 import { PokemonTypes, TextToPokemonType } from "../modules/pokemonTypes";
 import Type from "./Type";
-import { State } from "../redux/reducers/reducers";
+import { usePokemonData } from "../redux/usePokemonData";
 
 function Coverage(): JSX.Element {
-    const data = useSelector(
-        (state: { pokemonData: State }) => state.pokemonData.pokemon
-    );
+    const { state: data } = usePokemonData();
     const items = Object.values(data).reduce((prev, next) => {
         // Filter - Remove null values
         if (next === null) {

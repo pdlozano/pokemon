@@ -2,9 +2,9 @@ import type { Pokemon as PokemonType } from "pokenode-ts";
 import Meta from "./Meta";
 import Stats from "./Stats";
 import Change from "./Change";
-import { useDispatch } from "react-redux";
 import { actions } from "../redux/actions";
 import { textToPokemon } from "../modules/textToPokemon";
+import { usePokemonData } from "../redux/usePokemonData";
 
 type PokemonData = {
     data: PokemonType | undefined;
@@ -13,7 +13,7 @@ type PokemonData = {
 };
 
 function Pokemon(props: PokemonData): JSX.Element {
-    const dispatch = useDispatch();
+    const { dispatch } = usePokemonData();
 
     if (props.data === undefined) {
         return (

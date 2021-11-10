@@ -1,10 +1,9 @@
 import type { Pokemon } from "pokenode-ts";
-import { useSelector, useDispatch } from "react-redux";
 import { actions } from "../redux/actions";
 import MoveComponent from "./MoveComponent";
-import type { State } from "../redux/reducers/reducers";
 import Change from "./Change";
 import { textToPokemonMove } from "../modules/textToPokemon";
+import { usePokemonData } from "../redux/usePokemonData";
 
 type MoveSetData = {
     data: Pokemon | undefined;
@@ -12,10 +11,8 @@ type MoveSetData = {
 };
 
 function MoveSet(props: MoveSetData): JSX.Element {
-    const state = useSelector((state: { pokemonData: State }) => {
-        return state.pokemonData.pokemon[parseInt(props.item)];
-    });
-    const dispatch = useDispatch();
+    const { state: data, dispatch } = usePokemonData();
+    const state = data[parseInt(props.item)];
 
     if (state === null || props.data === undefined) {
         return <div>{""}</div>;

@@ -1,19 +1,16 @@
 import Pokemon from "../components/Pokemon";
 import MoveSet from "../components/MoveSet";
-import { useSelector } from "react-redux";
-import { State } from "../redux/reducers/reducers";
 import Weaknesses from "../components/Weaknesses";
 import Coverage from "../components/Coverage";
 import AverageStats from "../components/AverageStats";
 import Header from "../components/Header";
 import { allPokemon } from "../redux/initialData.json";
 import { Footer } from "../components/Footer";
-import { Head } from "next/document";
+import Head from "next/head";
+import { usePokemonData } from "../redux/usePokemonData";
 
 function PokemonPage(): JSX.Element {
-    const state = useSelector(
-        (state: { pokemonData: State }) => state.pokemonData
-    );
+    const { state } = usePokemonData();
 
     return (
         <div>
@@ -25,7 +22,7 @@ function PokemonPage(): JSX.Element {
 
             <main className="w-11/12 md:w-10/12 mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                    {Object.entries(state.pokemon).map((data, index) => {
+                    {Object.entries(state).map((data, index) => {
                         const [key, pokemon] = data;
 
                         return (

@@ -1,13 +1,10 @@
-import { useSelector } from "react-redux";
 import getWeaknesses from "../modules/weaknesses";
 import { PokemonTypes, TextToPokemonType } from "../modules/pokemonTypes";
 import Type from "./Type";
-import { State } from "../redux/reducers/reducers";
+import { usePokemonData } from "../redux/usePokemonData";
 
 function Weaknesses(): JSX.Element {
-    const state = useSelector(
-        (state: { pokemonData: State }) => state.pokemonData.pokemon
-    );
+    const { state } = usePokemonData();
     const pokemonTypes = Object.values(state).reduce((prev, next) => {
         // Filter - Remove if item is null
         if (next === null) {

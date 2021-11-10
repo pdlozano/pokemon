@@ -1,7 +1,7 @@
 import type { Move } from "pokenode-ts";
 import { TextToPokemonType } from "../modules/pokemonTypes";
-import { useDispatch } from "react-redux";
 import { actions } from "../redux/actions";
+import { usePokemonData } from "../redux/usePokemonData";
 
 type MoveData = {
     data: Move;
@@ -12,7 +12,7 @@ type MoveData = {
 function MoveComponent(props: MoveData): JSX.Element {
     const { names, accuracy, damage_class, type, power } = props.data;
     const { name } = names.filter((item) => item.language.name === "en")[0];
-    const dispatch = useDispatch();
+    const { dispatch } = usePokemonData();
 
     const statusOrNot =
         damage_class.name !== "status"

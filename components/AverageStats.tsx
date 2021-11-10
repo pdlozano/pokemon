@@ -1,6 +1,5 @@
-import { useSelector } from "react-redux";
-import { State } from "../redux/reducers/reducers";
 import { Meter } from "./Meter";
+import { usePokemonData } from "../redux/usePokemonData";
 
 type StatsData = {
     hp: number;
@@ -20,9 +19,8 @@ const keys = {
 };
 
 function AverageStats(): JSX.Element {
-    const state = useSelector(
-        (state: { pokemonData: State }) => state.pokemonData.pokemon
-    );
+    const { state } = usePokemonData();
+
     if (state === null) {
         return <div></div>;
     }
