@@ -5,9 +5,14 @@ module.exports = {
     ],
     darkMode: "media",
     theme: {
+        fontFamily: {
+            header: ["'Open Sans'", "sans-serif"],
+            body: ["'Open Sans'", "sans-serif"],
+        },
         extend: {
             colors: {
                 pokemon: "var(--color)",
+                pokemonlight: "var(--color-light)",
             },
         },
     },

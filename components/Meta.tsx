@@ -14,7 +14,7 @@ function Meta(props: MetaData): JSX.Element {
             <img src={props.data.sprites.front_default} alt={props.data.name} />
 
             <div>
-                <h1>{name}</h1>
+                <h2>{name}</h2>
 
                 <div className="flex">
                     {props.data.types.map((type, index) => {

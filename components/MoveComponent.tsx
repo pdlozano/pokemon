@@ -31,9 +31,10 @@ function MoveComponent(props: MoveData): JSX.Element {
     return (
         <div
             tabIndex={0}
-            className="border-4 p-2 rounded-lg hover:bg-pokemon hover:bg-opacity-30 border-pokemon"
+            className="border-4 p-2 rounded-lg focus:outline-none focus:bg-pokemonlight hover:bg-pokemonlight border-pokemon"
             style={{
                 "--color": TextToPokemonType(type.name),
+                "--color-light": TextToPokemonType(type.name) + "44",
             }}
             onKeyDown={(event) => {
                 if (event.key === "Enter") {

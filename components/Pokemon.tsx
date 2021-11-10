@@ -5,6 +5,7 @@ import Change from "./Change";
 import { actions } from "../redux/actions";
 import { textToPokemon } from "../modules/textToPokemon";
 import { usePokemonData } from "../redux/usePokemonData";
+import { useState } from "react";
 
 type PokemonData = {
     data: PokemonType | undefined;
@@ -14,6 +15,7 @@ type PokemonData = {
 
 function Pokemon(props: PokemonData): JSX.Element {
     const { dispatch } = usePokemonData();
+    const [focus, setFocus] = useState<boolean>(false);
 
     if (props.data === undefined) {
         return (
@@ -33,23 +35,25 @@ function Pokemon(props: PokemonData): JSX.Element {
     }
 
     return (
-        <details className="w-full border-2 px-4 py-2">
-            <summary>
+        <details className="w-full border-2">
+            <summary className="focus:outline-none focus:bg-gray-200 hover:bg-gray-200 px-4 py-2">
                 <button
                     onClick={(event) => {
                         event.preventDefault();
                         dispatch(actions.pokemon.remove(props.item));
                     }}
-                    className="float-right mt-1 uppercase text-xs text-red-800 rounded font-bold"
+                    className="float-right mt-1 uppercase text-xs text-red-800 rounded font-bold p-2 focus:outline-none focus:bg-gray-400 hover:bg-gray-400"
                 >
                     X
                 </button>
                 <Meta data={props.data} />
             </summary>
 
-            <Stats data={props.data} />
+            <div className="px-4 py-2">
+                <Stats data={props.data} />
 
-            {props.children}
+                {props.children}
+            </div>
         </details>
     );
 }

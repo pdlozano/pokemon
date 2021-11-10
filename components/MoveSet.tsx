@@ -36,6 +36,7 @@ function MoveSet(props: MoveSetData): JSX.Element {
         return (
             <Change
                 key={key}
+                move={true}
                 func={(text) => {
                     const move = text.replaceAll(" ", "-");
                     if (availableMoves.indexOf(move) !== -1) {
