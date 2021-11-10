@@ -8,6 +8,7 @@ import AverageStats from "../components/AverageStats";
 import Header from "../components/Header";
 import { allPokemon } from "../redux/initialData.json";
 import { Footer } from "../components/Footer";
+import { Head } from "next/document";
 
 function PokemonPage(): JSX.Element {
     const state = useSelector(
@@ -16,6 +17,10 @@ function PokemonPage(): JSX.Element {
 
     return (
         <div>
+            <Head>
+                <title>Pokemon Team Coverage and Weakness Checker</title>
+            </Head>
+
             <Header />
 
             <main className="w-11/12 md:w-10/12 mx-auto">
