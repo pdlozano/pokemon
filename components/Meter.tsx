@@ -1,5 +1,6 @@
 type MeterData = {
     val: number;
+    id?: string;
 };
 
 function Meter(props: MeterData): JSX.Element {
@@ -16,12 +17,19 @@ function Meter(props: MeterData): JSX.Element {
     return (
         <div>
             <div className="w-full h-2">
+                <p className="sr-only" id={props.id}>
+                    {props.id}
+                </p>
                 <div
                     className="h-full rounded-full"
                     style={{
                         width: width + "%",
                         background: color,
                     }}
+                    role="meter"
+                    aria-value-now={props.val}
+                    aria-value-min={0}
+                    aria-value-max={255}
                 ></div>
             </div>
         </div>
