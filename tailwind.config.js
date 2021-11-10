@@ -5,7 +5,11 @@ module.exports = {
     ],
     darkMode: "media",
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                pokemon: "var(--color)",
+            },
+        },
     },
     variants: {
         extend: {},
