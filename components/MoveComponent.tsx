@@ -2,6 +2,7 @@ import type { Move } from "pokenode-ts";
 import { TextToPokemonType } from "../modules/pokemonTypes";
 import { actions } from "../redux/actions";
 import { usePokemonData } from "../redux/usePokemonData";
+import React from "react";
 
 type MoveData = {
     data: Move;
@@ -13,6 +14,14 @@ function MoveComponent(props: MoveData): JSX.Element {
     const { names, accuracy, damage_class, type, power } = props.data;
     const { name } = names.filter((item) => item.language.name === "en")[0];
     const { dispatch } = usePokemonData();
+    const action = (
+        event:
+            | React.KeyboardEvent<HTMLDivElement>
+            | React.MouseEvent<HTMLDivElement>
+    ) => {
+        event.preventDefault();
+        dispatch(actions.move.remove(props.item, props.index));
+    };
 
     const statusOrNot =
         damage_class.name !== "status"
@@ -21,13 +30,18 @@ function MoveComponent(props: MoveData): JSX.Element {
 
     return (
         <div
+            tabIndex={0}
             className="border-4 p-2 rounded-lg"
             style={{
                 borderColor: TextToPokemonType(type.name),
             }}
+            onKeyDown={(event) => {
+                if (event.key === "Enter") {
+                    action(event);
+                }
+            }}
             onClick={(event) => {
-                event.preventDefault();
-                dispatch(actions.move.remove(props.item, props.index));
+                action(event);
             }}
         >
             <p
