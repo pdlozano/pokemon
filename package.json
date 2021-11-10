@@ -6,7 +6,8 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "test": "jest"
     },
     "dependencies": {
         "@reduxjs/toolkit": "^1.6.2",
@@ -18,13 +19,19 @@
         "redux": "^4.1.2"
     },
     "devDependencies": {
+        "@testing-library/jest-dom": "^5.15.0",
+        "@testing-library/react": "^12.1.2",
         "@types/node": "16.11.6",
         "@types/react": "17.0.33",
         "autoprefixer": "^10.4.0",
+        "babel-jest": "^27.3.1",
         "eslint": "7",
         "eslint-config-next": "12.0.1",
+        "identity-obj-proxy": "^3.0.0",
+        "jest": "^27.3.1",
         "postcss": "^8.3.11",
         "prettier": "^2.4.1",
+        "react-test-renderer": "^17.0.2",
         "tailwindcss": "^2.2.19",
         "ts-node": "^10.4.0",
         "typescript": "4.4.4"
