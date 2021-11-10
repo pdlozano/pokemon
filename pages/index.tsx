@@ -16,6 +16,11 @@ function PokemonPage(): JSX.Element {
         <div>
             <Head>
                 <title>Pokemon Team Coverage and Weakness Checker</title>
+                <meta charSet="utf-8" />
+                <meta
+                    name="description"
+                    content="Tool to check for coverage and weaknesses of your Pokemon team"
+                />
             </Head>
 
             <Header />
