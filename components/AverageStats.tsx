@@ -11,6 +11,14 @@ type StatsData = {
     speed: number;
 };
 
+const keys = {
+    hp: "HP",
+    attack: "Effective Attack",
+    defense: "Defense",
+    specialDefense: "Special Defense",
+    speed: "Speed",
+};
+
 function AverageStats(): JSX.Element {
     const state = useSelector(
         (state: { pokemonData: State }) => state.pokemonData.pokemon
@@ -128,8 +136,10 @@ function AverageStats(): JSX.Element {
 
                         return (
                             <tr key={key}>
-                                <td className="w-5/12">{key}</td>
-                                <td className="w-2/12">{val}</td>
+                                <td className="w-5/12 text-right">
+                                    {keys[key]}
+                                </td>
+                                <td className="w-2/12 text-right">{val}</td>
                                 <td className="w-5/12">
                                     <Meter val={val} />
                                 </td>
@@ -137,8 +147,8 @@ function AverageStats(): JSX.Element {
                         );
                     })}
                     <tr>
-                        <td className="w-5/12">Total</td>
-                        <td className="w-2/12">
+                        <td className="w-5/12 text-right font-bold">Total</td>
+                        <td className="w-2/12 text-right font-bold">
                             {Math.floor(total * 100) / 100}
                         </td>
                         <td className="w-5/12"></td>
