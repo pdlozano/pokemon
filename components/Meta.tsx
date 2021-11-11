@@ -1,6 +1,7 @@
 import type { Pokemon as PokemonType } from "pokenode-ts";
 import { TextToPokemonType } from "../modules/pokemonTypes";
 import Type from "./Type";
+import Image from "next/image";
 
 type MetaData = {
     data: PokemonType;
@@ -11,7 +12,12 @@ function Meta(props: MetaData): JSX.Element {
 
     return (
         <div className="flex">
-            <img src={props.data.sprites.front_default} alt={props.data.name} />
+            <Image
+                src={props.data.sprites.front_default}
+                alt={props.data.name}
+                width="96px"
+                height="96px"
+            />
 
             <div>
                 <h2>{name}</h2>
