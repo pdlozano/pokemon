@@ -1,6 +1,6 @@
-import { Pokemon, Move } from "pokenode-ts";
 import { Action } from "../actions/actions";
 import type { ActionCreator } from "../actions";
+import type { Pokemon, Move } from "../../modules/pokemonData";
 
 type PokemonData = {
     pokemon: Pokemon;

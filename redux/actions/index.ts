@@ -1,6 +1,8 @@
-import { Pokemon, Move } from "pokenode-ts";
+import { Pokemon as PokenodePokemon } from "pokenode-ts";
 import { Action } from "./actions";
-import { PokemonData } from "../reducers/reducers";
+import { simplifyOutput } from "../../modules/pokemonData";
+import type { PokemonData } from "../reducers/reducers";
+import type { Move } from "../../modules/pokemonData";
 
 type ActionCreator = {
     type: Action;
@@ -11,13 +13,13 @@ type ActionCreator = {
     };
 };
 
-function addPokemon(item: number, pokemon: Pokemon): ActionCreator {
+function addPokemon(item: number, pokemon: PokenodePokemon): ActionCreator {
     return {
         type: Action.ADD_POKEMON,
         payload: {
             item,
             data: {
-                pokemon,
+                pokemon: simplifyOutput.pokemon(pokemon),
                 moves: {
                     0: null,
                     1: null,

@@ -1,5 +1,5 @@
 import getWeaknesses from "../modules/weaknesses";
-import { PokemonTypes, TextToPokemonType } from "../modules/pokemonTypes";
+import { PokemonTypes } from "../modules/pokemonTypes";
 import Type from "./Type";
 import { usePokemonData } from "../redux/usePokemonData";
 
@@ -13,10 +13,9 @@ function Weaknesses(): JSX.Element {
             }
 
             // Mapping - Turn it into a PokemonType
-            const types = next.pokemon.types.map((t) =>
-                TextToPokemonType(t.type.name)
+            const weaknesses: Array<PokemonTypes> = getWeaknesses(
+                next.pokemon.types
             );
-            const weaknesses: Array<PokemonTypes> = getWeaknesses(types);
 
             // Flat - Get only one array
             return prev.concat(weaknesses);

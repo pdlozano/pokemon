@@ -1,4 +1,4 @@
-import type { Pokemon } from "pokenode-ts";
+import type { Pokemon } from "../modules/pokemonData";
 import { actions } from "../redux/actions";
 import MoveComponent from "./MoveComponent";
 import Change from "./Change";
@@ -18,7 +18,6 @@ function MoveSet(props: MoveSetData): JSX.Element {
         return <div>{""}</div>;
     }
 
-    const availableMoves = state.pokemon.moves.map((move) => move.move.name);
     const moveSet = Object.entries(state.moves).map((item, index) => {
         const [key, val] = item;
 
@@ -39,7 +38,7 @@ function MoveSet(props: MoveSetData): JSX.Element {
                 move={true}
                 func={(text) => {
                     const move = text.replaceAll(" ", "-");
-                    if (availableMoves.indexOf(move) !== -1) {
+                    if (state.pokemon.availableMoves.indexOf(move) !== -1) {
                         textToPokemonMove(move).then((res) => {
                             if (res) {
                                 dispatch(
@@ -65,8 +64,9 @@ function MoveSet(props: MoveSetData): JSX.Element {
     return (
         <div className="grid grid-cols-2 grid-rows-2 gap-2">
             {moveSet}
+
             <datalist id={"moves-" + state.pokemon.name}>
-                {availableMoves.map((text) => {
+                {state.pokemon.availableMoves.map((text) => {
                     const data = text.replaceAll("-", " ");
                     return <option key={text}>{data}</option>;
                 })}

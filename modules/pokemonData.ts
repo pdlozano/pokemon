@@ -15,6 +15,7 @@ type Stats = {
     "special-attack": number;
     "special-defense": number;
     speed: number;
+    total: number;
 };
 
 type Pokemon = {
@@ -43,6 +44,7 @@ function pokemon(item: PokenodePokemon): Pokemon {
             return {
                 ...prev,
                 [next.stat.name]: next.base_stat,
+                total: prev.total + next.base_stat,
             };
         },
         {
@@ -52,6 +54,7 @@ function pokemon(item: PokenodePokemon): Pokemon {
             "special-attack": 0,
             "special-defense": 0,
             speed: 0,
+            total: 0,
         }
     );
 

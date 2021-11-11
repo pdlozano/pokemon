@@ -1,4 +1,4 @@
-import type { Pokemon as PokemonType } from "pokenode-ts";
+import type { Pokemon as PokemonType } from "../modules/pokemonData";
 import { Meter } from "./Meter";
 
 const statsNames: any = {
@@ -14,33 +14,40 @@ type StatsData = {
     data: PokemonType;
 };
 
+type StatData = {
+    name: string;
+    val: number;
+    total?: boolean;
+};
+
+function Stat(props: StatData): JSX.Element {
+    return (
+        <tr>
+            <td className="text-right w-40">{props.name}</td>
+            <td className="text-right pl-2 w-14">{props.val}</td>
+            <td>{props.total ? "" : <Meter val={props.val} />}</td>
+        </tr>
+    );
+}
+
 function Stats(props: StatsData): JSX.Element {
     const stats = props.data.stats;
-    const total = stats.reduce((prev, next) => prev + next.base_stat, 0);
 
     return (
         <table className="w-full">
             <tbody>
-                {stats.map((stat) => {
-                    const name = statsNames[stat.stat.name];
+                {Object.entries(stats).map((stat) => {
+                    const [key, val] = stat;
 
                     return (
-                        <tr key={name}>
-                            <td className="text-right w-40">{name}</td>
-                            <td className="text-right pl-2 w-14">
-                                {stat.base_stat}
-                            </td>
-                            <td>
-                                <Meter val={stat.base_stat} />
-                            </td>
-                        </tr>
+                        <Stat
+                            name={statsNames[key]}
+                            val={val}
+                            total={key === "total"}
+                            key={key}
+                        />
                     );
                 })}
-                <tr>
-                    <td className="text-right w-40 font-bold">Total</td>
-                    <td className="text-right pl-2 w-14 font-bold">{total}</td>
-                    <td>{""}</td>
-                </tr>
             </tbody>
         </table>
     );

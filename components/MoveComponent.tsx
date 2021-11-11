@@ -1,5 +1,6 @@
-import type { Move } from "pokenode-ts";
-import { TextToPokemonType } from "../modules/pokemonTypes";
+import type { Move } from "../modules/pokemonData";
+import { AttackType } from "../modules/pokemonData";
+import { PokemonTypeToText } from "../modules/pokemonTypes";
 import { actions } from "../redux/actions";
 import { usePokemonData } from "../redux/usePokemonData";
 import React from "react";
@@ -11,8 +12,11 @@ type MoveData = {
 };
 
 function MoveComponent(props: MoveData): JSX.Element {
-    const { names, accuracy, damage_class, type, power } = props.data;
-    const { name } = names.filter((item) => item.language.name === "en")[0];
+    const { name: tempName, accuracy, damage_class, type, power } = props.data;
+    const name = tempName
+        .split("-")
+        .map((string) => string[0].toUpperCase() + string.slice(1))
+        .join(" ");
     const { dispatch } = usePokemonData();
     const action = (
         event:
@@ -24,8 +28,8 @@ function MoveComponent(props: MoveData): JSX.Element {
     };
 
     const statusOrNot =
-        damage_class.name !== "status"
-            ? `Power: ${power || 100} / Accuracy: ${accuracy || 100}`
+        damage_class === AttackType.status
+            ? `Power: ${power} / Accuracy: ${accuracy}`
             : "Status Move";
 
     return (
@@ -34,8 +38,8 @@ function MoveComponent(props: MoveData): JSX.Element {
             className="border-4 p-2 rounded-lg focus:outline-none focus:bg-pokemonlight hover:bg-pokemonlight border-pokemon"
             style={
                 {
-                    "--color": TextToPokemonType(type.name),
-                    "--color-light": TextToPokemonType(type.name) + "44",
+                    "--color": type,
+                    "--color-light": type + "44",
                 } as React.CSSProperties
             }
             onKeyDown={(event) => {
@@ -48,7 +52,7 @@ function MoveComponent(props: MoveData): JSX.Element {
             }}
         >
             <p className="text-center text-xs uppercase font-bold text-pokemon">
-                {type.name}
+                {PokemonTypeToText(type)}
             </p>
             <p className="text-center font-bold text-lg sm:text-xl">{name}</p>
             <p className="text-center text-sm">{statusOrNot}</p>

@@ -1,11 +1,13 @@
 import getCoverage from "../modules/coverage";
-import { PokemonTypes, TextToPokemonType } from "../modules/pokemonTypes";
+import { PokemonTypes } from "../modules/pokemonTypes";
 import Type from "./Type";
 import { usePokemonData } from "../redux/usePokemonData";
+import { AttackType } from "../modules/pokemonData";
 
 function Coverage(): JSX.Element {
-    const { state: data } = usePokemonData();
-    const items = Object.values(data).reduce(
+    const { state } = usePokemonData();
+
+    const items = Object.values(state).reduce(
         (prev: Array<PokemonTypes>, next): Array<PokemonTypes> => {
             // Filter - Remove null values
             if (next === null) {
@@ -19,14 +21,12 @@ function Coverage(): JSX.Element {
                 ): Array<PokemonTypes> => {
                     if (
                         nextVal === null ||
-                        nextVal.damage_class.name === "status"
+                        nextVal.damage_class === AttackType.status
                     ) {
                         return prevVal;
                     }
 
-                    return prevVal.concat([
-                        TextToPokemonType(nextVal.type.name),
-                    ]);
+                    return prevVal.concat([nextVal.type]);
                 },
                 []
             );
