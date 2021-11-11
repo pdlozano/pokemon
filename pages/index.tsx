@@ -4,7 +4,7 @@ import Weaknesses from "../components/Weaknesses";
 import Coverage from "../components/Coverage";
 import AverageStats from "../components/AverageStats";
 import Header from "../components/Header";
-import { allPokemon } from "../redux/initialData.json";
+import data from "../redux/initialData.json";
 import { Footer } from "../components/Footer";
 import Head from "next/head";
 import { usePokemonData } from "../redux/usePokemonData";
@@ -53,7 +53,7 @@ function PokemonPage(): JSX.Element {
             <Footer />
 
             <datalist id="pokemon-list">
-                {allPokemon.map((item) => (
+                {data.allPokemon.map((item) => (
                     <option key={item}>{item}</option>
                 ))}
             </datalist>
