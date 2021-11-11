@@ -16,5 +16,18 @@ const initialState = {
     },
 };
 
-const store = createStore(rootReducer, initialState);
+const getInitialState = () => {
+    if (typeof window === "undefined" || localStorage.data === undefined) {
+        return initialState;
+    }
+
+    return JSON.parse(localStorage.data);
+};
+
+const store = createStore(rootReducer, getInitialState());
+
+store.subscribe(() => {
+    window.localStorage.data = JSON.stringify(store.getState());
+});
+
 export { store };
