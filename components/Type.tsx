@@ -12,7 +12,7 @@ function Type(props: TypeData): JSX.Element {
         <div
             style={{
                 borderColor: props.disabled ? "gray" : props.data,
-                background: props.disabled ? "white" : props.data,
+                background: props.disabled ? "transparent" : props.data,
                 color: props.disabled ? "gray" : "white",
             }}
             className="px-2 py-1 mx-0.5 my-2 uppercase text-sm rounded border-2 font-bold"

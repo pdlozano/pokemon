@@ -1,7 +1,7 @@
 function Footer(): JSX.Element {
     const year = new Date().getFullYear();
     return (
-        <footer className="grid grid-cols-1 md:grid-cols-3 gap-2 px-4 py-2 mt-2 bg-gray-200">
+        <footer className="grid grid-cols-1 md:grid-cols-3 gap-2 px-4 py-2 mt-2 bg-gray-200 dark:bg-gray-900">
             <div className="col-span-2">
                 <h2>About</h2>
                 <p>

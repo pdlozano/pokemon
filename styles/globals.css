@@ -35,6 +35,7 @@
         @apply text-blue-600;
         @apply underline;
         @apply hover:line-through;
+        @apply dark:text-blue-400;
     }
 
     input {

@@ -33,14 +33,14 @@ function Pokemon(props: PokemonData): JSX.Element {
     }
 
     return (
-        <details className="w-full border-2">
-            <summary className="focus:outline-none focus:bg-gray-200 hover:bg-gray-200 px-4 py-2">
+        <details className="w-full border-2 border-gray-200 dark:border-gray-900">
+            <summary className="focus:outline-none focus:bg-gray-200 hover:bg-gray-200 dark:hover:bg-gray-900 dark:focus:bg-gray-900 px-4 py-2">
                 <button
                     onClick={(event) => {
                         event.preventDefault();
                         dispatch(actions.pokemon.remove(props.item));
                     }}
-                    className="float-right mt-1 uppercase text-xs text-red-800 rounded font-bold p-2 focus:outline-none focus:bg-gray-400 hover:bg-gray-400"
+                    className="float-right mt-1 uppercase text-xs text-red-800 rounded font-bold p-2 focus:outline-none focus:bg-gray-400 hover:bg-gray-400 dark:focus:bg-gray-700 dark:hover:bg-gray-700"
                 >
                     X
                 </button>
