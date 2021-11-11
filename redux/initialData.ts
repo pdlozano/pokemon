@@ -1,5 +1,6 @@
 import { MainClient } from "pokenode-ts";
 import type { State } from "./reducers/reducers";
+import { simplifyOutput } from "../modules/pokemonData";
 
 async function initialize() {
     const api = new MainClient();
@@ -30,10 +31,14 @@ async function initialize() {
         },
     ].map(async (data) => {
         const { name, moves } = data;
-        const pokemonData = await api.pokemon.getPokemonByName(name);
+        const pokemonData = await api.pokemon
+            .getPokemonByName(name)
+            .then((res) => simplifyOutput.pokemon(res));
         const movesData = await Promise.all(
             moves.map(async (move) => {
-                return api.move.getMoveByName(move);
+                return api.move
+                    .getMoveByName(move)
+                    .then((res) => simplifyOutput.moves(res));
             })
         );
 
