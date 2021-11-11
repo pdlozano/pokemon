@@ -1,4 +1,4 @@
-import type { Pokemon as PokemonType } from "pokenode-ts";
+import type { Pokemon as PokemonType } from "../modules/pokemonData";
 import Meta from "./Meta";
 import Stats from "./Stats";
 import Change from "./Change";

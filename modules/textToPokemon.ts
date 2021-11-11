@@ -1,13 +1,13 @@
 import { MainClient } from "pokenode-ts";
 import { simplifyOutput } from "./pokemonData";
-import type { Pokemon, Move } from "../modules/pokemonData";
+import type { Move } from "./pokemonData";
+import type { Pokemon } from "pokenode-ts";
 
 const api = new MainClient();
 
 async function textToPokemon(name: string): Promise<Pokemon | void> {
     return api.pokemon
         .getPokemonByName(name)
-        .then((res) => simplifyOutput.pokemon(res))
         .catch((err) => console.error(err));
 }
 

@@ -62,7 +62,7 @@ function getEffectiveAttack(data: PokemonData): number {
         []
     );
     const sum = vals.reduce((prev, next) => prev + next, 0);
-    return sum / vals.length;
+    return sum / vals.length || 0;
 }
 
 export type { StatsData };
