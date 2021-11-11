@@ -27,7 +27,7 @@ function Change(props: ChangeData) {
                     value={text}
                     list={props.list}
                     className={
-                        "w-full border-2 border-black bg-white font-bold px-2 py-1 uppercase mb-2" +
+                        "w-full border-2 border-black bg-white dark:bg-gray-900 font-bold px-2 py-1 uppercase mb-2" +
                         (props.move ? " rounded-t-md" : "")
                     }
                 />
@@ -37,7 +37,7 @@ function Change(props: ChangeData) {
                         props.func(text);
                     }}
                     className={
-                        "w-full border-2 border-red-800 bg-white font-bold px-2 py-1 uppercase hover:bg-red-200 focus:bg-red-200 focus:outline-none" +
+                        "w-full border-2 border-red-800 bg-white dark:bg-gray-900 font-bold px-2 py-1 uppercase hover:bg-red-200 focus:bg-red-200 dark:hover:bg-red-700 dark:focus:bg-red-700 focus:outline-none" +
                         (props.move ? " rounded-b-md" : "")
                     }
                 >

@@ -41,6 +41,8 @@
     input {
         @apply focus:outline-none;
         @apply focus:bg-gray-200;
+        @apply dark:focus:bg-gray-700;
         @apply hover:bg-gray-200;
+        @apply dark:hover:bg-gray-700;
     }
 }
