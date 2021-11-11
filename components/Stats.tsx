@@ -8,6 +8,7 @@ const statsNames: any = {
     "special-attack": "Special Attack",
     "special-defense": "Special Defense",
     speed: "Speed",
+    total: "Total",
 };
 
 type StatsData = {
@@ -17,14 +18,15 @@ type StatsData = {
 type StatData = {
     name: string;
     val: number;
-    total?: boolean;
+    total: boolean;
 };
 
 function Stat(props: StatData): JSX.Element {
+    const className = "text-right " + (props.total ? "font-bold" : "");
     return (
         <tr>
-            <td className="text-right w-40">{props.name}</td>
-            <td className="text-right pl-2 w-14">{props.val}</td>
+            <td className={className + "w-40"}>{props.name}</td>
+            <td className={className + "pl-2 w-14"}>{props.val}</td>
             <td>{props.total ? "" : <Meter val={props.val} />}</td>
         </tr>
     );

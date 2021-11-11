@@ -15,7 +15,7 @@ const statsNames: any = {
 type StatData = {
     name: string;
     val: number;
-    total?: boolean;
+    total: boolean;
 };
 
 function Stat(props: StatData): JSX.Element {
