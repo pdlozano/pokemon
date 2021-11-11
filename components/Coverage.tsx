@@ -5,22 +5,36 @@ import { usePokemonData } from "../redux/usePokemonData";
 
 function Coverage(): JSX.Element {
     const { state: data } = usePokemonData();
-    const items = Object.values(data).reduce((prev, next) => {
-        // Filter - Remove null values
-        if (next === null) {
-            return prev;
-        }
-
-        const result = Object.values(next.moves).reduce((prevVal, nextVal) => {
-            if (nextVal === null || nextVal.damage_class.name === "status") {
-                return prevVal;
+    const items = Object.values(data).reduce(
+        (prev: Array<PokemonTypes>, next): Array<PokemonTypes> => {
+            // Filter - Remove null values
+            if (next === null) {
+                return prev;
             }
 
-            return prevVal.concat([TextToPokemonType(nextVal.type.name)]);
-        }, []);
+            const result = Object.values(next.moves).reduce(
+                (
+                    prevVal: Array<PokemonTypes>,
+                    nextVal
+                ): Array<PokemonTypes> => {
+                    if (
+                        nextVal === null ||
+                        nextVal.damage_class.name === "status"
+                    ) {
+                        return prevVal;
+                    }
 
-        return prev.concat(result);
-    }, []);
+                    return prevVal.concat([
+                        TextToPokemonType(nextVal.type.name),
+                    ]);
+                },
+                []
+            );
+
+            return prev.concat(result);
+        },
+        []
+    );
     const coverage = new Set(getCoverage(items));
 
     const types = Object.values(PokemonTypes).map((type) => (

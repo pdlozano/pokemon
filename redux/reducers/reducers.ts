@@ -17,12 +17,12 @@ type State = {
 
 const initialState: State = {
     pokemon: {
+        0: null,
         1: null,
         2: null,
         3: null,
         4: null,
         5: null,
-        6: null,
     },
 };
 
@@ -36,7 +36,7 @@ function pokemonReducer(
                 ...state,
                 pokemon: {
                     ...state.pokemon,
-                    [action.payload.item]: action.payload.data,
+                    [action.payload.item]: action.payload.data as PokemonData,
                 },
             };
         case Action.REMOVE_POKEMON:
@@ -48,49 +48,54 @@ function pokemonReducer(
                 },
             };
         case Action.ADD_POKEMON_MOVE:
-            if (
-                action.payload.moveItem !== null &&
-                action.payload.moveItem !== undefined
-            ) {
+            if (action.payload.moveItem !== undefined) {
                 const data = state.pokemon[action.payload.item];
-                return {
-                    ...state,
-                    pokemon: {
-                        ...state.pokemon,
-                        [action.payload.item]: {
-                            ...data,
-                            moves: {
-                                ...data?.moves,
-                                [action.payload.moveItem]: action.payload.data,
+
+                if (data !== null) {
+                    return {
+                        ...state,
+                        pokemon: {
+                            ...state.pokemon,
+                            [action.payload.item]: {
+                                ...data,
+                                moves: {
+                                    ...data?.moves,
+                                    [action.payload.moveItem]: action.payload
+                                        .data as Move,
+                                },
                             },
                         },
-                    },
-                };
+                    };
+                }
             }
+
+            return state;
         case Action.REMOVE_POKEMON_MOVE:
-            if (
-                action.payload.moveItem !== null &&
-                action.payload.moveItem !== undefined
-            ) {
+            if (action.payload.moveItem !== undefined) {
                 const data = state.pokemon[action.payload.item];
-                return {
-                    ...state,
-                    pokemon: {
-                        ...state.pokemon,
-                        [action.payload.item]: {
-                            ...data,
-                            moves: {
-                                ...data?.moves,
-                                [action.payload.moveItem]: null,
+
+                if (data !== null) {
+                    return {
+                        ...state,
+                        pokemon: {
+                            ...state.pokemon,
+                            [action.payload.item]: {
+                                ...data,
+                                moves: {
+                                    ...data?.moves,
+                                    [action.payload.moveItem]: null,
+                                },
                             },
                         },
-                    },
-                };
+                    };
+                }
             }
+
+            return state;
         default:
             return state;
     }
 }
 
 export { pokemonReducer };
-export type { State };
+export type { State, PokemonData };

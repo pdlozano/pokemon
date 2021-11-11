@@ -1,19 +1,13 @@
 import { Pokemon, Move } from "pokenode-ts";
 import { Action } from "./actions";
+import { PokemonData } from "../reducers/reducers";
 
 type ActionCreator = {
     type: Action;
     payload: {
         item: number;
         moveItem?: number;
-        data?:
-            | {
-                  pokemon: Pokemon;
-                  moves: {
-                      [n: number]: Move | null;
-                  };
-              }
-            | Move;
+        data?: PokemonData | Move;
     };
 };
 

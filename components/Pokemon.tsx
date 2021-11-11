@@ -5,7 +5,6 @@ import Change from "./Change";
 import { actions } from "../redux/actions";
 import { textToPokemon } from "../modules/textToPokemon";
 import { usePokemonData } from "../redux/usePokemonData";
-import { useState } from "react";
 
 type PokemonData = {
     data: PokemonType | undefined;
@@ -15,7 +14,6 @@ type PokemonData = {
 
 function Pokemon(props: PokemonData): JSX.Element {
     const { dispatch } = usePokemonData();
-    const [focus, setFocus] = useState<boolean>(false);
 
     if (props.data === undefined) {
         return (

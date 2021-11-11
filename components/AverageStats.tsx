@@ -10,86 +10,102 @@ type StatsData = {
     speed: number;
 };
 
-const keys = {
-    hp: "HP",
-    attack: "Effective Attack",
-    defense: "Defense",
-    specialDefense: "Special Defense",
-    speed: "Speed",
-};
-
 function AverageStats(): JSX.Element {
     const { state } = usePokemonData();
 
     if (state === null) {
-        return <div></div>;
+        return <div>{""}</div>;
     }
-    const stats = Object.values(state).reduce((prev, next) => {
-        // Filter - Remove all null values
-        if (next === null) {
-            return prev;
-        }
+    const stats = Object.values(state).reduce(
+        (prev: Array<StatsData>, next): Array<StatsData> => {
+            // Filter - Remove all null values
+            if (next === null) {
+                return prev;
+            }
 
-        // Map - Process Data
-        const pokemonType = next.pokemon.types.map((type) => type.type.name);
-        const statsData = next.pokemon.stats.reduce(
-            (prev, next) => ({
-                ...prev,
-                [next.stat.name]: next.base_stat,
-            }),
-            {}
-        );
-
-        const effectiveAttack = Object.values(next.moves).reduce(
-            (prevVal, nextAttack) => {
-                // Filter - Ignore status moves
-                if (
-                    nextAttack === null ||
-                    nextAttack?.damage_class.name === "status"
-                ) {
-                    return prevVal;
+            // Map - Process Data
+            const pokemonType = next.pokemon.types.map(
+                (type) => type.type.name
+            );
+            const statsData: StatsData = next.pokemon.stats.reduce(
+                (prev, next) => ({
+                    ...prev,
+                    [next.stat.name]: next.base_stat,
+                }),
+                {
+                    hp: 0,
+                    attack: 0,
+                    defense: 0,
+                    "special-attack": 0,
+                    "special-defense": 0,
+                    speed: 0,
                 }
+            );
 
-                const stab =
-                    pokemonType.indexOf(nextAttack.type.name) !== -1 ? 1.5 : 1;
-                const accuracy = nextAttack.accuracy / 100 || 1;
-                const movePower =
-                    nextAttack.power === null ? 1 : nextAttack.power / 100;
-                const attackPower =
-                    nextAttack.damage_class.name === "special"
-                        ? statsData["special-attack"]
-                        : statsData.attack;
+            const effectiveAttack = Object.values(next.moves).reduce(
+                (prevVal: Array<number>, nextAttack): Array<number> => {
+                    // Filter - Ignore status moves
+                    if (
+                        nextAttack === null ||
+                        nextAttack?.damage_class.name === "status"
+                    ) {
+                        return prevVal;
+                    }
 
-                return prevVal.concat([
-                    stab * accuracy * movePower * attackPower,
-                ]);
-            },
-            []
-        );
-        const averageEffectiveAttack =
-            effectiveAttack.reduce((prev, next) => prev + next, 0) /
-            effectiveAttack.length;
+                    const stab =
+                        pokemonType.indexOf(nextAttack.type.name) !== -1
+                            ? 1.5
+                            : 1;
+                    const accuracy = nextAttack.accuracy / 100 || 1;
+                    const movePower =
+                        nextAttack.power === null ? 1 : nextAttack.power / 100;
+                    const attackPower =
+                        nextAttack.damage_class.name === "special"
+                            ? statsData["special-attack"]
+                            : statsData.attack;
 
-        return prev.concat([
-            {
-                hp: statsData.hp,
-                attack: isNaN(averageEffectiveAttack)
-                    ? 0
-                    : averageEffectiveAttack,
-                defense: statsData.defense,
-                specialDefense: statsData["special-defense"],
-                speed: statsData.speed,
-            },
-        ]);
-    }, []);
+                    return prevVal.concat([
+                        stab * accuracy * movePower * attackPower,
+                    ]);
+                },
+                []
+            );
+            const averageEffectiveAttack =
+                effectiveAttack.reduce((prev, next) => prev + next, 0) /
+                effectiveAttack.length;
+
+            const {
+                hp,
+                defense,
+                ["special-defense"]: specialDefense,
+                speed,
+            } = statsData;
+
+            return prev.concat([
+                {
+                    hp: hp,
+                    attack: isNaN(averageEffectiveAttack)
+                        ? 0
+                        : averageEffectiveAttack,
+                    defense: defense,
+                    "special-attack": 0,
+                    "special-defense": specialDefense,
+                    speed: speed,
+                },
+            ]);
+        },
+        []
+    );
     const averageStats: StatsData = stats.reduce(
-        (prev: StatsData, next: StatsData) => {
+        (prev: StatsData, next: StatsData): StatsData => {
             return {
+                ...prev,
                 hp: prev.hp + next.hp / stats.length,
                 attack: prev.attack + next.attack / stats.length,
                 defense: prev.defense + next.defense / stats.length,
-                specialDefense:
-                    prev.specialDefense + next.specialDefense / stats.length,
+                "special-defense":
+                    prev["special-defense"] +
+                    next["special-defense"] / stats.length,
                 speed: prev.speed + next.speed / stats.length,
             };
         },
@@ -97,7 +113,8 @@ function AverageStats(): JSX.Element {
             hp: 0,
             attack: 0,
             defense: 0,
-            specialDefense: 0,
+            "special-attack": 0,
+            "special-defense": 0,
             speed: 0,
         }
     );
@@ -131,12 +148,22 @@ function AverageStats(): JSX.Element {
                     {Object.entries(averageStats).map((item) => {
                         const [key, value] = item;
                         const val = Math.floor(value * 100) / 100;
+                        const name =
+                            key === "hp"
+                                ? "HP"
+                                : key === "attack"
+                                ? "Effective Attack"
+                                : key === "defense"
+                                ? "Defense"
+                                : key === "special-defense"
+                                ? "Special Defense"
+                                : key === "speed"
+                                ? "Speed"
+                                : "";
 
                         return (
                             <tr key={key}>
-                                <td className="w-5/12 text-right">
-                                    {keys[key]}
-                                </td>
+                                <td className="w-5/12 text-right">{name}</td>
                                 <td className="w-2/12 text-right">{val}</td>
                                 <td className="w-5/12">
                                     <Meter val={val} />
@@ -149,7 +176,7 @@ function AverageStats(): JSX.Element {
                         <td className="w-2/12 text-right font-bold">
                             {Math.floor(total * 100) / 100}
                         </td>
-                        <td className="w-5/12"></td>
+                        <td className="w-5/12">{""}</td>
                     </tr>
                 </tbody>
             </table>

@@ -1,11 +1,8 @@
 import { createStore } from "redux";
 import rootReducer from "./reducers";
 import { pokemon } from "./initialData.json";
-import { State } from "./reducers/reducers";
 
-const initialState: {
-    pokemonData: State;
-} = {
+const initialState = {
     pokemonData: {
         pokemon,
     },

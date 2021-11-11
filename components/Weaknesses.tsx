@@ -5,21 +5,24 @@ import { usePokemonData } from "../redux/usePokemonData";
 
 function Weaknesses(): JSX.Element {
     const { state } = usePokemonData();
-    const pokemonTypes = Object.values(state).reduce((prev, next) => {
-        // Filter - Remove if item is null
-        if (next === null) {
-            return prev;
-        }
+    const pokemonTypes = Object.values(state).reduce(
+        (prev: Array<PokemonTypes>, next): Array<PokemonTypes> => {
+            // Filter - Remove if item is null
+            if (next === null) {
+                return prev;
+            }
 
-        // Mapping - Turn it into a PokemonType
-        const types = next.pokemon.types.map((t) =>
-            TextToPokemonType(t.type.name)
-        );
-        const weaknesses: Array<PokemonTypes> = getWeaknesses(types);
+            // Mapping - Turn it into a PokemonType
+            const types = next.pokemon.types.map((t) =>
+                TextToPokemonType(t.type.name)
+            );
+            const weaknesses: Array<PokemonTypes> = getWeaknesses(types);
 
-        // Flat - Get only one array
-        return prev.concat(weaknesses);
-    }, []);
+            // Flat - Get only one array
+            return prev.concat(weaknesses);
+        },
+        []
+    );
     const data = new Set(pokemonTypes);
 
     const types = Object.values(PokemonTypes).map((type) => (
