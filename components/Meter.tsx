@@ -27,10 +27,12 @@ function Meter(props: MeterData): JSX.Element {
                         background: color,
                     }}
                     role="meter"
-                    aria-value-now={props.val}
-                    aria-value-min={0}
-                    aria-value-max={255}
-                ></div>
+                    aria-valuenow={props.val}
+                    aria-valuemin={0}
+                    aria-valuemax={255}
+                >
+                    {""}
+                </div>
             </div>
         </div>
     );
