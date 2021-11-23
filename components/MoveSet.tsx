@@ -67,8 +67,12 @@ function MoveSet(props: MoveSetData): JSX.Element {
 
             <datalist id={"moves-" + state.pokemon.name}>
                 {state.pokemon.availableMoves.map((text) => {
-                    const data = text.replaceAll("-", " ");
-                    return <option key={text}>{data}</option>;
+                    try {
+                        const data = text.replaceAll("-", " ");
+                        return <option key={text}>{data}</option>;
+                    } catch (TypeError) {
+                        return <option key={text}>{text}</option>;
+                    }
                 })}
             </datalist>
         </div>
