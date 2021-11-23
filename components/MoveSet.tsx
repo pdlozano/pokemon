@@ -37,7 +37,7 @@ function MoveSet(props: MoveSetData): JSX.Element {
                 key={key}
                 move={true}
                 func={(text: string) => {
-                    const move = text;
+                    const move = text.replaceAll(" ", "-");
                     if (state.pokemon.availableMoves.indexOf(move) !== -1) {
                         textToPokemonMove(move).then((res) => {
                             if (res) {
@@ -67,8 +67,8 @@ function MoveSet(props: MoveSetData): JSX.Element {
 
             <datalist id={"moves-" + state.pokemon.name}>
                 {state.pokemon.availableMoves.map((text) => {
-                    const data = text;
-                    return <option key={text}>{data}</option>;
+                    // const data = text.replaceAll("-", " ");
+                    return <option key={text}>{text}</option>;
                 })}
             </datalist>
         </div>
