@@ -2,7 +2,7 @@ import Pokemon from "../components/Pokemon";
 import MoveSet from "../components/MoveSet";
 import Weaknesses from "../components/Weaknesses";
 import Coverage from "../components/Coverage";
-import AverageStats from "../components/AverageStats";
+import TeamStats from "../components/TeamStats";
 import Header from "../components/Header";
 import data from "../redux/initialData.json";
 import { Footer } from "../components/Footer";
@@ -47,7 +47,7 @@ function PokemonPage(): JSX.Element {
                     <Weaknesses />
                 </div>
 
-                <AverageStats />
+                <TeamStats />
             </main>
 
             <Footer />

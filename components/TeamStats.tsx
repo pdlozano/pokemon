@@ -1,13 +1,14 @@
 import { Meter } from "./Meter";
 import { usePokemonData } from "../redux/usePokemonData";
-import { getAverageStats } from "../modules/stats";
+import { getTeamStats } from "../modules/stats";
 import { PokemonData } from "../redux/reducers/reducers";
 
 const statsNames: any = {
     hp: "HP",
-    attack: "Effective Attack",
+    attack: "Attack",
+    specialAtt: "Special Attack",
     defense: "Defense",
-    "special-defense": "Special Defense",
+    specialDef: "Special Defense",
     speed: "Speed",
     total: "Total",
 };
@@ -25,18 +26,41 @@ function Stat(props: StatData): JSX.Element {
             <td className={"w-4/12 " + className}>{props.name}</td>
             <td className={"w-2/12 " + className}>{props.val}</td>
             <td className="w-6/12">
-                {props.total ? "" : <Meter val={props.val} />}
+                {props.total ? "" : <Meter val={props.val} max={800} />}
             </td>
         </tr>
     );
 }
 
-function AverageStats(): JSX.Element {
+function TeamStats(): JSX.Element {
     const { state } = usePokemonData();
     const data: PokemonData[] = Object.values(state).filter(
         (item): item is PokemonData => item !== null
     );
-    const averageStats = getAverageStats(data);
+    const teamStats = getTeamStats(data).reduce(
+        (prev, next) => {
+            return {
+                ...prev,
+                hp: prev.hp + next.hp,
+                attack: prev.attack + next.attack,
+                specialAtt: prev.specialAtt + next.specialAtt,
+                defense: prev.defense + next.defense,
+                specialDef: prev.specialDef + next.specialDef,
+                speed: prev.speed + next.speed,
+                total: prev.total + next.total,
+            };
+        },
+        {
+            name: "",
+            hp: 0,
+            attack: 0,
+            specialAtt: 0,
+            defense: 0,
+            specialDef: 0,
+            speed: 0,
+            total: 0,
+        }
+    );
 
     if (state === null) {
         return <div>{""}</div>;
@@ -44,34 +68,23 @@ function AverageStats(): JSX.Element {
 
     return (
         <div>
-            <h2>Average Stats</h2>
+            <h2>Team Stats</h2>
             <p>
-                Looks at the average stats of your team. Calculation is as
-                follows:
+                Figure out which ones are the defenders, the glass cannons, etc.
             </p>
-            <ol className="list-decimal my-4">
-                <li>
-                    The average of HP, Defense, Special Defense, and Speed are
-                    taken as is
-                </li>
-                <li>
-                    The effective attack of each pokemon is computed by: (Move
-                    Power) * (Physical Attack/Special Attack) * (STAB) *
-                    (Accuracy). Stab is 1.5 if the move type is the same as the
-                    pokemon typing and 1 otherwise.
-                </li>
-                <li>The effective attacks are then averaged</li>
-            </ol>
             <table className="w-full">
                 <tbody>
-                    {Object.entries(averageStats).map((item) => {
+                    {Object.entries(teamStats).map((item) => {
                         const [key, value] = item;
-                        const val = Math.floor(value * 100) / 100;
+
+                        if (typeof value === "string") {
+                            return <></>;
+                        }
 
                         return (
                             <Stat
                                 name={statsNames[key]}
-                                val={val}
+                                val={value}
                                 key={key}
                                 total={key === "total"}
                             />
@@ -83,4 +96,4 @@ function AverageStats(): JSX.Element {
     );
 }
 
-export default AverageStats;
+export default TeamStats;

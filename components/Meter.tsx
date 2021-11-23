@@ -1,16 +1,18 @@
 type MeterData = {
     val: number;
     id?: string;
+    max?: number;
 };
 
 function Meter(props: MeterData): JSX.Element {
-    const width = (props.val / 255) * 100;
+    const max = props.max || 255;
+    const width = (props.val / max) * 100;
     const color =
-        props.val < 60
+        width < 25
             ? "var(--red)"
-            : props.val < 90
+            : width < 35
             ? "var(--yellow)"
-            : props.val < 120
+            : width < 50
             ? "var(--lightgreen)"
             : "var(--green)";
 
@@ -29,7 +31,7 @@ function Meter(props: MeterData): JSX.Element {
                     role="meter"
                     aria-valuenow={props.val}
                     aria-valuemin={0}
-                    aria-valuemax={255}
+                    aria-valuemax={max}
                 >
                     {""}
                 </div>
