@@ -1,4 +1,4 @@
-import { Meter } from "./Meter";
+import { MultipleMeter } from "./Meter";
 import { usePokemonData } from "../redux/usePokemonData";
 import { getTeamStats } from "../modules/stats";
 import { PokemonData } from "../redux/reducers/reducers";
@@ -38,7 +38,7 @@ function Stat(props: StatData): JSX.Element {
             <td className={"w-4/12 " + className}>{props.name}</td>
             <td className={"w-2/12 md:w-1/12 " + className}>{val}</td>
             <td className="w-6/12 md:w-7/12">
-                {props.total ? "" : <Meter val={val} max={800} />}
+                {props.total ? "" : <MultipleMeter val={props.val} max={800} />}
             </td>
         </tr>
     );
