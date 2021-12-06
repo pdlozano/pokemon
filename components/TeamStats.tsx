@@ -1,4 +1,4 @@
-import { MultipleMeter } from "./Meter";
+import { MultipleMeter, TeamColors } from "./Meter";
 import { usePokemonData } from "../redux/usePokemonData";
 import { getTeamStats } from "../modules/stats";
 import { PokemonData } from "../redux/reducers/reducers";
@@ -49,6 +49,7 @@ function TeamStats(): JSX.Element {
     const data: PokemonData[] = Object.values(state).filter(
         (item): item is PokemonData => item !== null
     );
+    const pokemon = getTeamStats(data).map((item) => item.name);
     const teamStats = getTeamStats(data).reduce(
         (prev: TeamStatsData, next): TeamStatsData => {
             return {
@@ -82,6 +83,26 @@ function TeamStats(): JSX.Element {
             <p>
                 Figure out which ones are the defenders, the glass cannons, etc.
             </p>
+            <div className="flex">
+                {pokemon.map((name, index) => {
+                    const val = name.toUpperCase();
+
+                    return (
+                        <div
+                            className="px-2 font-bold text-white"
+                            style={{
+                                backgroundColor:
+                                    TeamColors[
+                                        (index + 1) as keyof typeof TeamColors
+                                    ] || "rgb(255, 255, 255)",
+                            }}
+                            key={"val" + index}
+                        >
+                            {val}
+                        </div>
+                    );
+                })}
+            </div>
             <table className="w-full">
                 <tbody>
                     {Object.entries(teamStats).map((item) => {

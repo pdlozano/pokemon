@@ -6,6 +6,7 @@ type MeterData = {
 
 type MultipleMeterData = {
     val: number[];
+    id?: string;
     max?: number;
 };
 
@@ -45,20 +46,33 @@ function Meter(props: MeterData): JSX.Element {
     );
 }
 
+const TeamColors = {
+    1: "rgb(0, 0, 0)",
+    2: "rgb(230, 159, 0)",
+    3: "rgb(88, 180, 233)",
+    4: "rgb(0, 158, 115)",
+    5: "rgb(204, 121, 167)",
+    6: "rgb(213, 94, 0)",
+} as const;
+
+type TeamColors = typeof TeamColors[keyof typeof TeamColors];
+
 function MultipleMeter(props: MultipleMeterData): JSX.Element {
     const max = props.max || 255;
 
     return (
         <div>
             <div className="w-full h-2">
-                {/*<p className="sr-only" id={props.id}>*/}
-                {/*    {props.id}*/}
-                {/*</p>*/}
+                <p className="sr-only" id={props.id}>
+                    {props.id}
+                </p>
 
                 <div className="flex h-full">
                     {props.val.map((value, key) => {
                         const width = (value / max) * 100;
-                        const color = `rgb(${value}, ${value}, 100)`;
+                        const color =
+                            TeamColors[(key + 1) as keyof typeof TeamColors] ||
+                            "rgb(255, 255, 255)";
 
                         return (
                             <div
@@ -83,4 +97,4 @@ function MultipleMeter(props: MultipleMeterData): JSX.Element {
     );
 }
 
-export { Meter, MultipleMeter };
+export { Meter, MultipleMeter, TeamColors };
