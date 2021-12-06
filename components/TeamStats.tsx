@@ -83,7 +83,7 @@ function TeamStats(): JSX.Element {
             <p>
                 Figure out which ones are the defenders, the glass cannons, etc.
             </p>
-            <div className="flex">
+            <div className="flex flex-wrap">
                 {pokemon.map((name, index) => {
                     const val = name.toUpperCase();
 
