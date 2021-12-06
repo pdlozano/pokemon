@@ -48,7 +48,7 @@ function Pokemon(props: PokemonData): JSX.Element {
             </summary>
 
             <div className="px-4 py-2">
-                <Stats data={props.data} />
+                <Stats data={props.data} keyHelper={props.item} />
 
                 {props.children}
             </div>

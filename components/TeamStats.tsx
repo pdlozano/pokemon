@@ -15,18 +15,30 @@ const statsNames: any = {
 
 type StatData = {
     name: string;
-    val: number;
+    val: number[];
     total: boolean;
+};
+
+type TeamStatsData = {
+    hp: number[];
+    attack: number[];
+    specialAtt: number[];
+    defense: number[];
+    specialDef: number[];
+    speed: number[];
+    total: number;
 };
 
 function Stat(props: StatData): JSX.Element {
     const className = "text-right" + (props.total ? " font-bold" : "");
+    const val = props.val.reduce((a, b) => a + b, 0);
+
     return (
         <tr>
             <td className={"w-4/12 " + className}>{props.name}</td>
-            <td className={"w-2/12 " + className}>{props.val}</td>
-            <td className="w-6/12">
-                {props.total ? "" : <Meter val={props.val} max={800} />}
+            <td className={"w-2/12 md:w-1/12 " + className}>{val}</td>
+            <td className="w-6/12 md:w-7/12">
+                {props.total ? "" : <Meter val={val} max={800} />}
             </td>
         </tr>
     );
@@ -38,26 +50,24 @@ function TeamStats(): JSX.Element {
         (item): item is PokemonData => item !== null
     );
     const teamStats = getTeamStats(data).reduce(
-        (prev, next) => {
+        (prev: TeamStatsData, next): TeamStatsData => {
             return {
-                ...prev,
-                hp: prev.hp + next.hp,
-                attack: prev.attack + next.attack,
-                specialAtt: prev.specialAtt + next.specialAtt,
-                defense: prev.defense + next.defense,
-                specialDef: prev.specialDef + next.specialDef,
-                speed: prev.speed + next.speed,
+                hp: [...prev.hp, next.hp],
+                attack: [...prev.attack, next.attack],
+                specialAtt: [...prev.specialAtt, next.specialAtt],
+                defense: [...prev.defense, next.defense],
+                specialDef: [...prev.specialDef, next.specialDef],
+                speed: [...prev.speed, next.speed],
                 total: prev.total + next.total,
             };
         },
         {
-            name: "",
-            hp: 0,
-            attack: 0,
-            specialAtt: 0,
-            defense: 0,
-            specialDef: 0,
-            speed: 0,
+            hp: [],
+            attack: [],
+            specialAtt: [],
+            defense: [],
+            specialDef: [],
+            speed: [],
             total: 0,
         }
     );
@@ -77,14 +87,12 @@ function TeamStats(): JSX.Element {
                     {Object.entries(teamStats).map((item) => {
                         const [key, value] = item;
 
-                        if (typeof value === "string") {
-                            return <></>;
-                        }
-
                         return (
                             <Stat
                                 name={statsNames[key]}
-                                val={value}
+                                val={
+                                    typeof value === "number" ? [value] : value
+                                }
                                 key={key}
                                 total={key === "total"}
                             />

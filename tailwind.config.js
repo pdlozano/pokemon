@@ -6,8 +6,8 @@ module.exports = {
     darkMode: "media",
     theme: {
         fontFamily: {
-            header: ["'Open Sans'", "sans-serif"],
-            body: ["'Open Sans'", "sans-serif"],
+            header: ["'Readex Pro'", "sans-serif"],
+            body: ["'Montserrat'", "sans-serif"],
         },
         extend: {
             colors: {

@@ -13,6 +13,7 @@ const statsNames: any = {
 
 type StatsData = {
     data: PokemonType;
+    keyHelper: number;
 };
 
 type StatData = {

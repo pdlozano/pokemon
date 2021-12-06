@@ -21,6 +21,10 @@ function PokemonPage(): JSX.Element {
                     name="description"
                     content="Tool to check for coverage and weaknesses of your Pokemon team"
                 />
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Readex+Pro:wght@700&display=swap"
+                    rel="stylesheet"
+                />
             </Head>
 
             <Header />
